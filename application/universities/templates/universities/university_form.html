@@ -1,0 +1,56 @@
+{% extends 'universities/layout.html' %}
+
+{% block title %} vasyagey {% endblock %}
+{% block content %}
+
+<div class="registration-form">
+  <form method="post" action="">
+    {% csrf_token %}
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">Повна назва вашого університету</legend>
+      <input name="university_name" type="text" class="input" placeholder="Ужгородський Національний Університет" />
+    </fieldset>
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">Регіон (заповнювати точно по бланку, дотримуватися пробілів та пропусків)</legend>
+      <input name="rector_name" type="text" class="input" placeholder="Україна, Закарпатська обл., м. Ужгород" />
+    </fieldset>
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">Повна назва вашого факультету</legend>
+      <input name="fakulty_name" type="text" class="input" placeholder="Інженерно-технічний факультет" />
+    </fieldset>
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">ПІБ ректора університету</legend>
+      <input name="rector_name" type="text" class="input" placeholder="Смоланка Володимир Іванович" />
+    </fieldset>
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">ПІБ декана факультету</legend>
+      <input name="dean_name" type="text" class="input" placeholder="Кравченко Олексій Олегович" />
+    </fieldset>
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">Пошта для звʼязку</legend>
+      <label class="input validator">
+        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></g></svg>
+        <input name="mail_name" type="email" placeholder="mail@gmail.com" required/>
+      </label>
+    </fieldset>
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">Дата створення вашого факультету</legend>
+      <input name="date_creation" type="date" class="input"/>
+    </fieldset>
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">Короткий опис вашого факультету</legend>
+      <textarea name="university_description" class="textarea h-24" placeholder="Опис факультету"></textarea>
+    </fieldset>
+    <button type="submit" class="btn btn-active btn-success">Success</button>
+    </form>
+  </div>
+
+
+
+
+
+
+
+
+{% endblock %}
+
