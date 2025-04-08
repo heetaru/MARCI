@@ -8,23 +8,23 @@
     {% csrf_token %}
     <fieldset class="fieldset">
       <legend class="fieldset-legend">Повна назва вашого університету</legend>
-      <input name="university_name" type="text" class="input" placeholder="Ужгородський Національний Університет" />
+      <input name="university_name" type="text" class="input validator" placeholder="Ужгородський Національний Університет" required/>
     </fieldset>
     <fieldset class="fieldset">
       <legend class="fieldset-legend">Регіон</legend>
-      <input name="rector_name" type="text" class="input" placeholder="Україна, Закарпатська обл., м. Ужгород" />
+      <input name="rector_name" type="text" class="input validator" placeholder="Україна, Закарпатська обл., м. Ужгород" required/>
     </fieldset>
     <fieldset class="fieldset">
       <legend class="fieldset-legend">Повна назва вашого факультету</legend>
-      <input name="fakulty_name" type="text" class="input" placeholder="Інженерно-технічний факультет" />
+      <input name="fakulty_name" type="text" class="input validator" placeholder="Інженерно-технічний факультет" required/>
     </fieldset>
     <fieldset class="fieldset">
       <legend class="fieldset-legend">ПІБ ректора університету</legend>
-      <input name="rector_name" type="text" class="input" placeholder="Смоланка Володимир Іванович" />
+      <input name="rector_name" type="text" class="input validator" placeholder="Смоланка Володимир Іванович" required/>
     </fieldset>
-    <fieldset class="fieldset">
+    <fieldset class="fieldset ">
       <legend class="fieldset-legend">ПІБ декана факультету</legend>
-      <input name="dean_name" type="text" class="input" placeholder="Кравченко Олексій Олегович" />
+      <input name="dean_name" type="text" class="input validator" placeholder="Кравченко Олексій Олегович" required />
     </fieldset>
     <fieldset class="fieldset">
       <legend class="fieldset-legend">Пошта для звʼязку</legend>
@@ -35,14 +35,14 @@
     </fieldset>
     <fieldset class="fieldset">
       <legend class="fieldset-legend">Дата створення вашого факультету</legend>
-      <input name="date_creation" type="date" class="input"/>
+      <input name="date_creation" type="date" class="input validator" required/>
     </fieldset>
     <fieldset class="fieldset">
       <legend class="fieldset-legend">Короткий опис вашого факультету</legend>
-      <textarea name="university_description" class="textarea h-24" placeholder="Опис факультету"></textarea>
+      <textarea name="university_description" class="textarea h-24 validator" placeholder="Опис факультету" required></textarea>
     </fieldset>
 
-    <button type="submit" class="btn btn-active btn-success">Success</button>
+    <button type="submit" class="btn btn-active btn-success mt-4">Success</button>
     </form>
   </div>
 
