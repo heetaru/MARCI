@@ -1,5 +1,24 @@
 {% extends 'universities/layout.html' %}
 
 {% block title %} vasyagey {% endblock %}
-{% block content %} <h1>YA PIDARAS</h1> {% endblock %}
+{% block content %}
+
+<a href="{% url 'university_view' 6 %}" >
+  <div class="card w-96 bg-base-100 card-md shadow-sm border">
+    <div class="card-body">
+      <h2 class="card-title">UNIVERSITET</h2>
+      <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+    </div>
+  </div>
+</a>
+
+
+
+
+
+
+
+
+
+{% endblock %}
 

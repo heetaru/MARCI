@@ -1,12 +1,17 @@
 from django.db import models
 
 class University(models.Model):
-    name = models.CharField("Назва університету")
-    faculty = models.CharField("Назва факультету")
-    description = models.TextField("Опис")
+    university_name = models.CharField("Назва університету")
+    region = models.TextField("Регіон")
+    fakulty_name = models.CharField("Назва факультету")
+    rektor_name = models.TextField("ПІБ ректора")
+    dean_name = models.TextField("ПІБ декана")
+    mail = models.TextField("Пошта")
+    date_creation = models.DateField("Дата створення факультету")
+    university_description = models.TextField("Опис")
 
     def str(self):
-        return self.name
+        return self.university_name
 
     class Meta:
         verbose_name = 'Університет'
