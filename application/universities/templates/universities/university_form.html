@@ -3,15 +3,15 @@
 {% block title %} vasyagey {% endblock %}
 {% block content %}
 
-<div class="registration-form">
-  <form method="post" action="">
+<div class="registration-form flex h-screen">
+  <form class="m-auto w-xs flex flex-col" method="post" action="">
     {% csrf_token %}
     <fieldset class="fieldset">
       <legend class="fieldset-legend">Повна назва вашого університету</legend>
       <input name="university_name" type="text" class="input" placeholder="Ужгородський Національний Університет" />
     </fieldset>
     <fieldset class="fieldset">
-      <legend class="fieldset-legend">Регіон (заповнювати точно по бланку, дотримуватися пробілів та пропусків)</legend>
+      <legend class="fieldset-legend">Регіон</legend>
       <input name="rector_name" type="text" class="input" placeholder="Україна, Закарпатська обл., м. Ужгород" />
     </fieldset>
     <fieldset class="fieldset">
@@ -41,6 +41,7 @@
       <legend class="fieldset-legend">Короткий опис вашого факультету</legend>
       <textarea name="university_description" class="textarea h-24" placeholder="Опис факультету"></textarea>
     </fieldset>
+
     <button type="submit" class="btn btn-active btn-success">Success</button>
     </form>
   </div>
