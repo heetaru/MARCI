@@ -2,19 +2,25 @@
 
 {% block title %} Список універитетів | MARCI {% endblock %}
 {% block content %}
-
+<div class="ml-55 mr-55 h-full">
+    <aside class="float-left h-100 w-1/4 bg-gray-500 ">filtiri</aside>
+<div class="flex flex-col justify-center">
 {% for university in university_list %}
-<a href="{% url 'university_view' university.id %}" >
-  <div class="card w-96 bg-base-100 card-md shadow-sm border">
-    <div class="card-body">
-        <h2 class="card-title">{{ university.university_name }}</h2>
-        <p>{{ university.fakulty_name }}</p>
-        <p>{{ university.rektor_name }}</p>
-        <p>{{ university.region }}</p>
+    <div class="card w-96 bg-base-100 card-md shadow-sm border ml-4 mr-4">
+    <a class="inline-block" href="{% url 'university_view' university.id %}" >
+        <div class="card-body">
+            <h2 class="card-title">{{ university.university_name }}</h2>
+            <p>{{ university.fakulty_name }}</p>
+            <p>{{ university.rektor_name }}</p>
+            <p>{{ university.region }}</p>
+        </div>
+    </a>
     </div>
-  </div>
-</a>
+
+
 {% endfor %}
+</div>
+</div>
 
 {% endblock %}
 
