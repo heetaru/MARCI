@@ -28,6 +28,61 @@
     <a href="{% url 'list' %}" class="btn btn-ghost text-xl">MARCI</a>
   </div>
   <div class="navbar-end">
+      <div class="dropdown">
+  <div tabindex="0" role="button" class="btn m-1">
+    Theme
+    <svg
+      width="12px"
+      height="12px"
+      class="inline-block h-2 w-2 fill-current opacity-60"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 2048 2048">
+      <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
+    </svg>
+  </div>
+  <ul tabindex="0" class="dropdown-content bg-base-300 rounded-box z-1 w-52 p-2 shadow-2xl">
+    <li>
+      <input
+        type="radio"
+        name="theme-dropdown"
+        class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+        aria-label="Dark"
+        value="dark" />
+    </li>
+    <li>
+      <input
+        type="radio"
+        name="theme-dropdown"
+        class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+        aria-label="Light"
+        value="light" />
+    </li>
+    <li>
+      <input
+        type="radio"
+        name="theme-dropdown"
+        class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+        aria-label="Corporate"
+        value="corporate" />
+    </li>
+    <li>
+      <input
+        type="radio"
+        name="theme-dropdown"
+        class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+        aria-label="Forest"
+        value="forest" />
+    </li>
+    <li>
+      <input
+        type="radio"
+        name="theme-dropdown"
+        class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+        aria-label="Luxury"
+        value="luxury" />
+    </li>
+  </ul>
+</div>
     <button class="btn btn-ghost btn-circle">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /> </svg>
     </button>
@@ -42,5 +97,30 @@
     </header>
     {% block content %}
     {% endblock %}
+<script>
+    // Перевірка на наявність вибору теми в localStorage
+    window.onload = function() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            const themeInputs = document.querySelectorAll('input[name="theme-dropdown"]');
+            themeInputs.forEach(input => {
+                if (input.value === savedTheme) {
+                    input.checked = true;
+                }
+            });
+        }
+    }
+
+    // Додавання прослуховувача подій для зміни теми
+    const themeControllers = document.querySelectorAll('.theme-controller');
+    themeControllers.forEach(controller => {
+        controller.addEventListener('change', function() {
+            const selectedTheme = this.value;
+            document.documentElement.setAttribute('data-theme', selectedTheme);
+            localStorage.setItem('theme', selectedTheme);
+        });
+    });
+</script>
 </body>
 </html>
