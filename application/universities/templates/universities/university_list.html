@@ -1,24 +1,20 @@
 {% extends 'universities/layout.html' %}
 
-{% block title %} vasyagey {% endblock %}
+{% block title %} Список універитетів | MARCI {% endblock %}
 {% block content %}
 
-<a href="{% url 'university_view' 6 %}" >
+{% for university in university_list %}
+<a href="{% url 'university_view' university.id %}" >
   <div class="card w-96 bg-base-100 card-md shadow-sm border">
     <div class="card-body">
-      <h2 class="card-title">UNIVERSITET</h2>
-      <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+        <h2 class="card-title">{{ university.university_name }}</h2>
+        <p>{{ university.fakulty_name }}</p>
+        <p>{{ university.rektor_name }}</p>
+        <p>{{ university.region }}</p>
     </div>
   </div>
 </a>
-
-
-
-
-
-
-
-
+{% endfor %}
 
 {% endblock %}
 

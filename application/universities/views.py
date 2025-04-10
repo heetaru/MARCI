@@ -5,7 +5,8 @@ from .models import University
 
 
 def index(request):
-    return render(request, 'universities/university_list.html')
+    university_list = University.objects.all()
+    return render(request, 'universities/university_list.html', {'university_list': university_list})
 
 
 def registration(request):
