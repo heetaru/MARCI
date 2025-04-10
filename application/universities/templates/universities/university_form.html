@@ -1,6 +1,6 @@
 {% extends 'universities/layout.html' %}
 
-{% block title %} vasyagey {% endblock %}
+{% block title %} Форма реєстрації університету | MARCI {% endblock %}
 {% block content %}
 
 <div class="registration-form flex h-screen">
@@ -8,50 +8,76 @@
     {% csrf_token %}
     <fieldset class="fieldset">
       <legend class="fieldset-legend">Повна назва вашого університету</legend>
-      <input name="university_name" type="text" class="input validator" placeholder="Ужгородський Національний Університет" required/>
+      <input name="university_name" type="text" class="input validator" placeholder="Ужгородський Національний Університет" oninput="handleInput()" required/>
     </fieldset>
     <fieldset class="fieldset">
       <legend class="fieldset-legend">Регіон</legend>
-      <input name="region" type="text" class="input validator" placeholder="Україна, Закарпатська обл., м. Ужгород" required/>
+      <input name="region" type="text" class="input validator" placeholder="Україна, Закарпатська обл., м. Ужгород" oninput="handleInput()" required/>
     </fieldset>
     <fieldset class="fieldset">
       <legend class="fieldset-legend">Повна назва вашого факультету</legend>
-      <input name="fakulty_name" type="text" class="input validator" placeholder="Інженерно-технічний факультет" required/>
+      <input name="fakulty_name" type="text" class="input validator" placeholder="Інженерно-технічний факультет" oninput="handleInput()" required/>
     </fieldset>
     <fieldset class="fieldset">
       <legend class="fieldset-legend">ПІБ ректора університету</legend>
-      <input name="rektor_name" type="text" class="input validator" placeholder="Смоланка Володимир Іванович" required/>
+      <input name="rektor_name" type="text" class="input validator" placeholder="Смоланка Володимир Іванович" oninput="handleInput()" required/>
     </fieldset>
     <fieldset class="fieldset ">
       <legend class="fieldset-legend">ПІБ декана факультету</legend>
-      <input name="dean_name" type="text" class="input validator" placeholder="Кравченко Олексій Олегович" required />
+      <input name="dean_name" type="text" class="input validator" placeholder="Кравченко Олексій Олегович" oninput="handleInput()" required />
     </fieldset>
     <fieldset class="fieldset">
       <legend class="fieldset-legend">Пошта для звʼязку</legend>
       <label class="input validator">
         <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></g></svg>
-        <input name="mail" type="email" placeholder="mail@gmail.com" required/>
+        <input name="mail" type="email" placeholder="mail@gmail.com" oninput="handleInput()" required/>
       </label>
     </fieldset>
     <fieldset class="fieldset">
       <legend class="fieldset-legend">Дата створення вашого факультету</legend>
-      <input name="date_creation" type="date" class="input validator" required/>
+      <input name="date_creation" type="date" class="input validator" oninput="handleInput()" required/>
     </fieldset>
     <fieldset class="fieldset">
       <legend class="fieldset-legend">Короткий опис вашого факультету</legend>
-      <textarea name="university_description" class="textarea h-24 validator" placeholder="Опис факультету" required></textarea>
+      <textarea name="university_description" class="textarea h-24 validator" placeholder="Опис факультету" oninput="handleInput()" required></textarea>
     </fieldset>
 
-    <button type="submit" class="btn btn-active btn-success mt-4">Success</button>
+    <button type="submit" id="submitButton" class="btn btn-active btn-success mt-4">Success</button>
     </form>
   </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            handleInput()
+        })
+
+        function handleInput() {
+            let submitButton = document.querySelector('#submitButton')
+            let inputs = document.querySelectorAll('input');
+            let textarea = document.querySelector('textarea');
+            let status = true;
+
+            inputs.forEach((input) => {
+                if (input.type == "hidden") {
+                    return;
+                }
+                if ( input.value.length <= 0 ) {
+                    status = false;
+                }
+
+            });
+            if ( textarea.value.length <= 0 ) {
+                status = false;
+            }
+
+            if (!status) {
+                submitButton.setAttribute("disabled", "")
+            } else {
+                submitButton.removeAttribute("disabled")
+            }
+        }
 
 
-
-
-
-
-
+    </script>
 {% endblock %}
 
