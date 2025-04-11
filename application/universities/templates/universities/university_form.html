@@ -79,30 +79,6 @@
 
 
     </script>
-    <script>
-    // Перевірка на наявність вибору теми в localStorage
-    window.onload = function() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            const themeInputs = document.querySelectorAll('input[name="theme-dropdown"]');
-            themeInputs.forEach(input => {
-                if (input.value === savedTheme) {
-                    input.checked = true;
-                }
-            });
-        }
-    }
 
-    // Додавання прослуховувача подій для зміни теми
-    const themeControllers = document.querySelectorAll('.theme-controller');
-    themeControllers.forEach(controller => {
-        controller.addEventListener('change', function() {
-            const selectedTheme = this.value;
-            document.documentElement.setAttribute('data-theme', selectedTheme);
-            localStorage.setItem('theme', selectedTheme);
-        });
-    });
-</script>
 {% endblock %}
 
