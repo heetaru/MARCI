@@ -4,8 +4,37 @@
 {% block content %}
 
 
+    <div class="bg-blue-200 w-full h-170 flex justify-center items-end">
+        <div class="card absolute bottom-5 w-4/5 bg-gray-300 text-black pl-30 pr-30 pt-10 pb-10">
+            <div class="flex w-full justify-between">
+                <div class="flex flex-col items-center">
+                    <i class="fa-solid fa-building-columns text-xl"></i>
+                    <h2 class="text-2xl font-bold tracking-wide text-gray-900">{{ university.university_name }}</h2>
+                    <span>Назва</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fa-solid fa-briefcase text-xl"></i>
+                    <h2 class="text-2xl font-bold tracking-wide text-gray-900">{{ university.fakulty_name }}</h2>
+                    <span>Факультет</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fa-solid fa-location-dot text-xl"></i>
+                    <h2 class="text-2xl font-bold tracking-wide text-gray-900">{{ university.region }}</h2>
+                    <span>Регіон</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fa-solid fa-money-check-dollar text-xl"></i>
+                    <h2 class="text-2xl font-bold tracking-wide text-gray-900">5.000$</h2>
+                    <span>Ціна</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-{{ university.university_name }}
+    <div class="">
+    <h2 class="text-2xl font-bold tracking-wide text-gray-900">Про нас</h2>
+    <span></span>
+    </div>
 
 
 {% endblock %}
