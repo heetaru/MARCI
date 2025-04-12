@@ -9,6 +9,8 @@ class University(models.Model):
     mail = models.TextField("Пошта")
     date_creation = models.DateField("Дата створення факультету")
     university_description = models.TextField("Опис")
+    mg = models.BooleanField("Присутність магістратури", default=False)
+    bc = models.BooleanField("Присутність бакалаврату", default=False)
 
     def str(self):
         return self.university_name

@@ -13,11 +13,15 @@ def registration(request):
     if request.method == 'POST':
         data = request.POST.dict()
         print(data)
-        University.objects.create(university_name=data['university_name'], region=data['region'],
-                                  fakulty_name=data['fakulty_name'], rektor_name=data['rektor_name'],
+        University.objects.create(university_name=data['university_name'],
+                                  region=data['region'],
+                                  fakulty_name=data['fakulty_name'],
+                                  rektor_name=data['rektor_name'],
                                   dean_name=data['dean_name'], mail=data['mail'],
                                   date_creation=data['date_creation'],
-                                  university_description=data['university_description'])
+                                  university_description=data['university_description'],
+                                  mg=data.get('mg') == 'on',
+                                  bc=data.get('bc') == 'on')
     return render(request, 'universities/university_form.html')
 
 class UniversityView(DetailView):
