@@ -6,7 +6,6 @@ class University(models.Model):
     city = models.TextField("Місто")
     fakulty_name = models.CharField("Назва факультету")
     mail = models.TextField("Пошта")
-    date_creation = models.DateField("Дата створення факультету")
     university_description = models.TextField("Опис")
     mg = models.BooleanField("Присутність магістратури", default=False)
     bc = models.BooleanField("Присутність бакалаврату", default=False)

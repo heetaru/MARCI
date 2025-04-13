@@ -1,0 +1,76 @@
+{% extends 'universities/layout.html' %}
+
+{% block title %} Форма реєстрації факультету | MARCI {% endblock %}
+{% block content %}
+
+    <div class="registration-form flex h-screen">
+      <form class="m-auto w-xs flex flex-col" method="post" action="">
+        {% csrf_token %}
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend">Повна назва вашого університету</legend>
+          <input name="university_name" type="text" class="input validator" placeholder="Ужгородський Національний Університет" oninput="handleInput()" required/>
+        </fieldset>
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend">Повна назва вашого факультету</legend>
+          <input name="fakulty_name" type="text" class="input validator" placeholder="Інженерно-технічний факультет" oninput="handleInput()" required/>
+        </fieldset>
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend">Країна (повна назва англійською мовою)</legend>
+          <input name="country" type="text" class="input validator" placeholder="Ukraine" oninput="handleInput()" required/>
+        </fieldset>
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend">Місто (повна назва англійською мовою)</legend>
+          <input name="city" type="text" class="input validator" placeholder="Kiev" oninput="handleInput()" required/>
+        </fieldset>
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend">Пошта для звʼязку</legend>
+          <label class="input validator">
+            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></g></svg>
+            <input name="mail" type="email" placeholder="mail@gmail.com" oninput="handleInput()" required/>
+          </label>
+        </fieldset>
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend">Короткий опис вашого факультету</legend>
+          <textarea name="university_description" class="textarea h-24 validator" placeholder="Опис факультету" oninput="handleInput()" required></textarea>
+        </fieldset>
+        <button type="submit" id="submitButton" class="btn btn-active btn-success mt-4">Далі</button>
+
+        </form>
+      </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", (event) => {
+                handleInput()
+            })
+
+            function handleInput() {
+                let submitButton = document.querySelector('#submitButton')
+                let inputs = document.querySelectorAll('input');
+                let textarea = document.querySelector('textarea');
+                let status = true;
+
+                inputs.forEach((input) => {
+                    if (input.type == "hidden") {
+                        return;
+                    }
+                    if ( input.value.length <= 0 ) {
+                        status = false;
+                    }
+
+                });
+                if ( textarea.value.length <= 0 ) {
+                    status = false;
+                }
+
+                if (!status) {
+                    submitButton.setAttribute("disabled", "")
+                } else {
+                    submitButton.removeAttribute("disabled")
+                }
+            }
+
+
+        </script>
+
+{% endblock %}
+
