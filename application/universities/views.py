@@ -29,6 +29,10 @@ def registration(request):
         context['bc'] = bc
     return render(request, 'universities/university_form.html', context)
 
+
+def fakulty_registration_images(request):
+    return render(request, "universities/fakulty_registration_images.html")
+
 class UniversityView(DetailView):
     model = University
     template_name = 'universities/university.html'

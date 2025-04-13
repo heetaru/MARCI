@@ -1,0 +1,70 @@
+{% extends 'universities/layout.html' %}
+
+{% block title %} Реєстрація факультету. Зображення | MARCI {% endblock %}
+{% block content %}
+
+    <div class="content flex justify-center">
+        <form class="flex flex-col p-10 bg-base-200 gap-10" method="post">
+            {% csrf_token %}
+            <div class="flex gap-4 items-start">
+                <!-- Зображення -->
+                <div class="image-wrapper">
+                    <label for="my_modal_1" class="btn w-24 h-24 p-0 overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://i.pinimg.com/736x/57/9e/f7/579ef74f2e5d428e1a643ebd00c89a40.jpg">
+                    </label>
+                    <input type="checkbox" id="my_modal_1" class="modal-toggle" />
+                    <div class="modal" role="dialog">
+                        <div class="modal-box">
+                            <img src="https://i.pinimg.com/736x/57/9e/f7/579ef74f2e5d428e1a643ebd00c89a40.jpg">
+                        </div>
+                        <label class="modal-backdrop" for="my_modal_7"></label>
+                    </div>
+                </div>
+
+                <!-- Поле для завантаження файлу -->
+                <div class="form-wrapper">
+                    <fieldset class="fieldset">
+                        <legend class="fieldset-legend">Зображення для головної сторінки факультету</legend>
+                        <input type="file" class="file-input" />
+                    </fieldset>
+                </div>
+            </div>
+            <div class="flex gap-4 items-start">
+                <!-- Зображення -->
+                <div class="image-wrapper">
+                    <label for="my_modal_2" class="btn w-24 h-24 p-0 overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://i.pinimg.com/736x/5e/ff/4f/5eff4fe08c1dc5915ba6414f10dc55ae.jpg">
+                    </label>
+                    <input type="checkbox" id="my_modal_2" class="modal-toggle" />
+                    <div class="modal" role="dialog">
+                        <div class="modal-box">
+                            <img src="https://i.pinimg.com/736x/5e/ff/4f/5eff4fe08c1dc5915ba6414f10dc55ae.jpg">
+                        </div>
+                        <label class="modal-backdrop" for="my_modal_7"></label>
+                    </div>
+                </div>
+
+                <!-- Поле для завантаження файлу -->
+                <div class="form-wrapper">
+                    <fieldset class="fieldset">
+                        <legend class="fieldset-legend">Зображення емлеми факультету</legend>
+                        <input type="file" class="file-input" />
+                    </fieldset>
+                </div>
+            </div>
+            <div class="">
+                <!-- Поле для завантаження файлу -->
+                <div class="form-wrapper">
+                    <fieldset class="fieldset w-full">
+                        <legend class="fieldset-legend">Зображення факультета</legend>
+                        <input type="file" class="file-input w-full" />
+                    </fieldset>
+                </div>
+            </div>
+            <button type="submit" id="submitButton" class="btn btn-active btn-success mt-4">Підтвердити</button>
+        </form>
+    </div>
+
+
+{% endblock %}
+
