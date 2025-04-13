@@ -17,10 +17,10 @@ def registration(request):
         mg = data.get('mg') == 'on'
         bc = data.get('bc') == 'on'
         University.objects.create(university_name=data['university_name'],
-                                  region=data['region'],
+                                  country=data['country'],
+                                  city=data['city'],
                                   fakulty_name=data['fakulty_name'],
-                                  rektor_name=data['rektor_name'],
-                                  dean_name=data['dean_name'], mail=data['mail'],
+                                  mail=data['mail'],
                                   date_creation=data['date_creation'],
                                   university_description=data['university_description'],
                                   mg=mg,
