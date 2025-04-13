@@ -10,9 +10,12 @@ def index(request):
 
 
 def registration(request):
+    context = {}
     if request.method == 'POST':
         data = request.POST.dict()
         print(data)
+        mg = data.get('mg') == 'on'
+        bc = data.get('bc') == 'on'
         University.objects.create(university_name=data['university_name'],
                                   region=data['region'],
                                   fakulty_name=data['fakulty_name'],
@@ -20,9 +23,11 @@ def registration(request):
                                   dean_name=data['dean_name'], mail=data['mail'],
                                   date_creation=data['date_creation'],
                                   university_description=data['university_description'],
-                                  mg=data.get('mg') == 'on',
-                                  bc=data.get('bc') == 'on')
-    return render(request, 'universities/university_form.html')
+                                  mg=mg,
+                                  bc=bc)
+        context['mg'] = mg
+        context['bc'] = bc
+    return render(request, 'universities/university_form.html', context)
 
 class UniversityView(DetailView):
     model = University

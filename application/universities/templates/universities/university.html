@@ -11,9 +11,16 @@
         </div>
         <div class="card absolute bottom-5 w-4/5 bg-base-200 text-base-content pl-30 pr-30 pt-10 pb-10">
             <div class="flex w-full justify-between">
-                <div class="flex flex-col items-center">
+                <div class="flex text-center flex-col items-center">
                     <i class="fa-solid fa-building-columns text-xl"></i>
-                    <h2 class="text-2xl font-bold tracking-wide ">B.Sc, Mg</h2>
+                    <div>
+                      {% if university.bc %}
+                        <h2 class="text-xl  font-bold tracking-wide ">Бакалаврат</h2>
+                      {% endif %}
+                      {% if university.mg %}
+                        <h2 class="text-xl  font-bold tracking-wide ">Магістратура</h2>
+                      {% endif %}
+                    </div>
                     <span>Ступені навчання</span>
                 </div>
                 <div class="flex flex-col items-center">
@@ -24,12 +31,12 @@
                 <div class="flex flex-col items-center">
                     <i class="fa-solid fa-location-dot text-xl"></i>
                     <h2 class="text-2xl font-bold tracking-wide ">{{ university.region }}</h2>
-                    <span>Регіон {{ university.bc }}</span>
+                    <span>Регіон</span>
                 </div>
                 <div class="flex flex-col items-center">
                     <i class="fa-solid fa-money-check-dollar text-xl"></i>
                     <h2 class="text-2xl font-bold tracking-wide ">5.000$</h2>
-                    <span>Ціна {{ university.mg }}</span>
+                    <span>Ціна</span>
                 </div>
             </div>
         </div>
