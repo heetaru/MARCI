@@ -7,8 +7,7 @@ class University(models.Model):
     fakulty_name = models.CharField("Назва факультету")
     mail = models.TextField("Пошта")
     university_description = models.TextField("Опис")
-    mg = models.BooleanField("Присутність магістратури", default=False)
-    bc = models.BooleanField("Присутність бакалаврату", default=False)
+
 
     def str(self):
         return self.university_name
