@@ -29,9 +29,6 @@ def fakulty_registration(request):
     return render(request, 'universities/fakulty_registration.html', context)
 
 def fakulty_registration_degree(request):
-    if request.method == 'POST':
-        data = request.POST.dict()
-        print(data)
     return render(request, 'universities/fakulty_registration_degree.html', {'fakulty_registration_degree': fakulty_registration_degree})
 
 

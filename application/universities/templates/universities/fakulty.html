@@ -4,21 +4,21 @@
 {% block content %}
 
 
-    <div class="bg-base-300 w-full h-170 flex justify-center items-end text-base-content">
-        <div class="card absolute bg-base-200 w-1/3 bottom-2/9 left-1/10 p-10 ">
+    <div class="bg-base-300 w-full h-170 flex flex-col flex-end justify-end gap-5 text-base-content">
+        <div class="card ml-[10%] bg-base-200 w-1/3 p-10">
             <p class="text-xs">{{ university.university_name }}</p>
             <p class="text-xl font-bold tracking-wide">{{ university.fakulty_name }}</p>
         </div>
-        <div class="card absolute bottom-5 w-4/5 bg-base-200 text-base-content pl-30 pr-30 pt-10 pb-10">
+        <div class="card w-4/5 -mb-19 bg-base-200 mx-auto text-base-content pl-30 pr-30 pt-10 pb-10">
             <div class="flex w-full justify-between">
                 <div class="flex text-center flex-col items-center">
                     <i class="fa-solid fa-building-columns text-xl"></i>
                     <div>
                       {% if university.bc %}
-                        <h2 class="text-xl  font-bold tracking-wide ">Бакалаврат</h2>
+                        <h2 class="text-l  font-bold tracking-wide ">Бакалаврат</h2>
                       {% endif %}
                       {% if university.mg %}
-                        <h2 class="text-xl  font-bold tracking-wide ">Магістратура</h2>
+                        <h2 class="text-l  font-bold tracking-wide ">Магістратура</h2>
                       {% endif %}
                     </div>
                     <span>Ступені навчання</span>
