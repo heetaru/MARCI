@@ -3,11 +3,11 @@
 {% block title %} Форма реєстрації ступенів навчання | MARCI {% endblock %}
 {% block content %}
     <form action="" method="post">
+    {% csrf_token %}
         <div class="registration-form flex p-10">
             <div id="container" class="w-1/2">
                 <div id="form" class="card bg-base-200 border-2 mb-4 border-base-300 p-4">
                     <div class="w-auto flex flex-col gap-3">
-                        {% csrf_token %}
                         <fieldset class="fieldset">
                           <legend class="fieldset-legend">Виберіть ступінь освіти</legend>
                           <select name="degree_type" class="select">
@@ -49,10 +49,8 @@
         <script>
 
             let form = null;
-            let index = 1;
             let clonedForm = null;
             document.addEventListener("DOMContentLoaded", function () {
-                //handleInput()
                 form = document.querySelector('#form');
                 clonedForm = form.cloneNode(true);
             })
@@ -62,30 +60,21 @@
                 container.appendChild(clonedForm);
                 clonedForm = form.cloneNode(true);
 
-                newForm.querySelectorAll('input, select').forEach((el) => {
-                    if (el.tagName === 'INPUT') el.value = '';
-                    if (el.tagName === 'SELECT') el.selectedIndex = 0;
-                });
+                let index = 0;
+                let section_list = document.querySelectorAll('select');
+                section_list.forEach((section) => {
+                    section.setAttribute('name', `input_${index}`);
+                    index++;
+                })
 
-                // Оновлюємо name-и
-                newForm.querySelectorAll('input, select').forEach((el) => {
-                    const originalName = el.getAttribute('name');
-                    if (originalName) {
-                        const newName = `${originalName}_${index}`;
-                        el.setAttribute('name', newName);
+                index = 0;
+                let input_list = document.querySelectorAll('input');
+                input_list.forEach((input) => {
+                    if (input.getAttribute('name') != 'csrfmiddlewaretoken') {
+                        input.setAttribute('name', `input_${index}`);
+                        index++;
                     }
-                });
-
-                // Додаємо у DOM
-                container.appendChild(newForm);
-                index++;
+                })
             }
-
         </script>
-
-
-
-
-
-
 {% endblock %}
