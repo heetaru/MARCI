@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView
 
-from .models import Faculty, Degree
+from .models import Faculty, Degree, Image
 
 
 def index(request):
@@ -27,11 +27,7 @@ def fakulty_registration(request):
 
 def fakulty_registration_degree(request):
     if request.method == 'POST':
-
         data = request.POST.dict()
-        print(data)
-        print(request.session['faculty_id'])
-
         values = list(data.values())[1:]
         faculty = Faculty.objects.get(id=request.session['faculty_id'])
 
@@ -49,6 +45,15 @@ def fakulty_registration_degree(request):
 
 
 def fakulty_registration_images(request):
+    if request.method == 'POST':
+        faculty = Faculty.objects.get(id=request.session['faculty_id'])
+
+        Image.objects.create(faculty=faculty, type='main', image=request.FILES.get('main_image'))
+        Image.objects.create(faculty=faculty, type='logo', image=request.FILES.get('logo_image'))
+
+        for image in request.FILES.getlist('additional_image'):
+            Image.objects.create(faculty=faculty, type='additional', image=image)
+
     return render(request, "universities/fakulty_registration_images.html")
 
 class UniversityView(DetailView):
