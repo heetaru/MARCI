@@ -60,3 +60,12 @@ class UniversityView(DetailView):
     model = Faculty
     template_name = 'universities/fakulty.html'
     context_object_name = 'university'
+
+    #Цей кусок кода, треба шоб на сайт передати окремі змінні, які не можна просто так дістати з бд
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        faculty = self.get_object()
+        context['main_image'] = faculty.images.filter(type='main').first()
+        context['logo_image'] = faculty.images.filter(type='logo').first()
+        context['additional_images'] = faculty.images.filter(type='additional')
+        return context
