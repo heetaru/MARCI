@@ -1,6 +1,6 @@
 from django.db import models
 
-class University(models.Model):
+class Faculty(models.Model):
     university_name = models.CharField("Назва університету")
     country = models.TextField("Країна")
     city = models.TextField("Місто")
@@ -15,3 +15,9 @@ class University(models.Model):
     class Meta:
         verbose_name = 'Університет'
         verbose_name_plural = 'Університети'
+
+class Degree(models.Model):
+    faculty = models.ForeignKey(Faculty, related_name="degrees", on_delete=models.CASCADE)
+    type = models.IntegerField("Айді ступеня освіти")
+    duration = models.IntegerField("Тривалість навчання")
+    cost = models.FloatField("Ціна")
