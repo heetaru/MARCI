@@ -17,8 +17,16 @@ class Faculty(models.Model):
         verbose_name_plural = 'Університети'
 
 class Degree(models.Model):
+    TYPE_CHOICES = [
+        (0, 'Молодший бакалавр'),
+        (1, 'Бакалавр'),
+        (2, 'Магістр'),
+        (3, 'Доктор філософії'),
+        (4, 'Доктор наук'),
+    ]
+
     faculty = models.ForeignKey(Faculty, related_name="degrees", on_delete=models.CASCADE)
-    type = models.IntegerField("Айді ступеня освіти")
+    type = models.IntegerField("Айді ступеня освіти", choices=TYPE_CHOICES)
     duration = models.IntegerField("Тривалість навчання")
     cost = models.FloatField("Ціна")
 

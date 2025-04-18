@@ -54,6 +54,8 @@ def fakulty_registration_images(request):
         for image in request.FILES.getlist('additional_image'):
             Image.objects.create(faculty=faculty, type='additional', image=image)
 
+        return redirect("university_view", request.session['faculty_id'])
+
     return render(request, "universities/fakulty_registration_images.html")
 
 class UniversityView(DetailView):
