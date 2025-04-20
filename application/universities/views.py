@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView
+from .filters import FacultyFilter
 
 from .models import Faculty, Degree, Image
 
 
 def index(request):
-    university_list = Faculty.objects.all()
-    return render(request, 'universities/fakulty_list.html', {'university_list': university_list})
+    faculty_list = Faculty.objects.all().distinct()
+    filter = FacultyFilter(request.GET, queryset=faculty_list)
+    return render(request, 'universities/fakulty_list.html', {
+        'filter': filter
+    })
 
 
 def fakulty_registration(request):

@@ -2,9 +2,9 @@ from django.db import models
 
 class Faculty(models.Model):
     university_name = models.CharField("Назва університету")
+    fakulty_name = models.CharField("Назва факультету")
     country = models.TextField("Країна")
     city = models.TextField("Місто")
-    fakulty_name = models.CharField("Назва факультету")
     mail = models.TextField("Пошта")
     university_description = models.TextField("Опис")
 
