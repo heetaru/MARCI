@@ -4,10 +4,18 @@
 {% block content %}
 <div class="ml-25 mr-25 h-full">
     <aside class="float-left h-100 w-1/4 bg-[var(--color-base-300)] mr-10">
-        <h2 class="text-center mt-4">Фільтри</h2>
+        <h2 class="text-center mt-4 mb-4">Фільтри</h2>
         <form action="" method="GET">
-            {{ filter.form.as_p }}
+            <div class="join join-vertical bg-base-100 w-full">
+              {% for field in filter.form %}
+                <div class="collapse collapse-arrow join-item border-base-300 border">
+                    <input type="radio" name="my-accordion-4" />
+                    <div class="collapse-title font-semibold">{{ field.label_tag }}</div>
+                    <div class="collapse-content text-sm">{{ field }}</div>
+                </div>
+              {% endfor %}
             <button type="submit" class="btn">Пошук</button>
+            </div>
         </form>
     </aside>
 <div class="flex flex-col items-center gap-5">
@@ -23,10 +31,24 @@
     </a>
     </div>
   {% empty %}
-    Нічого не знайдено
+    <h2 class="mt-10 font-bold ">Нічого не знайдено!!</h2>
   {% endfor %}
     </div>
 </div>
 
+    <script>
+         document.addEventListener("DOMContentLoaded", (event) => {
+                let checkboxes = document.querySelectorAll('input[type="checkbox"]')
+                checkboxes.forEach((checkbox) => {
+                    checkbox.classList.add("checkbox", "mr-2", "mb-1")
+                })
+             console.log(checkboxes)
+            })
+
+
+
+
+    </script>
 {% endblock %}
+
 
