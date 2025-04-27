@@ -4,6 +4,22 @@ from .filters import FacultyFilter
 
 from .models import Faculty, Degree, Image
 
+def fee_view(faculty_id):
+    faculty = Faculty.objects.get(id=faculty_id)
+    has_free = False
+    has_paid = False
+    for degree_cost in faculty.degrees.all():
+        if degree_cost.cost == 0:
+            has_free = True
+        else:
+            has_paid = True
+    print(f"Passing to context: has_free={has_free}, has_paid={has_paid}")
+    context = {
+        'faculty': faculty,
+        'has_free': has_free,
+        'has_paid': has_paid,
+    }
+    return context
 
 def index(request):
     faculty_list = Faculty.objects.all().distinct()
@@ -67,10 +83,13 @@ class UniversityView(DetailView):
     template_name = 'universities/fakulty.html'
     context_object_name = 'university'
 
+
     #Цей кусок кода, треба шоб на сайт передати окремі змінні, які не можна просто так дістати з бд
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         faculty = self.get_object()
+        context['has_free'] = fee_view(faculty.id)["has_free"]
+        context['has_paid'] = fee_view(faculty.id)["has_paid"]
         context['main_image'] = faculty.images.filter(type='main').first()
         context['logo_image'] = faculty.images.filter(type='logo').first()
         context['additional_images'] = faculty.images.filter(type='additional')
