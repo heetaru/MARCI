@@ -6,10 +6,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name='list'),
-    path('fakulty-registration/', views.fakulty_registration, name='registration'),
-    path('fakulty-registration/degree/', views.fakulty_registration_degree, name='fakulty-registration-degree'),
-    path('fakulty-registration/images/', views.fakulty_registration_images, name='fakulty-registration-images'),
-    path('fakulty/<int:pk>', views.UniversityView.as_view(), name='university_view'),
+    path('faculty-registration/', views.faculty_registration, name='registration'),
+    path('faculty-registration/degree/', views.faculty_registration_degree, name='faculty-registration-degree'),
+    path('faculty-registration/images/', views.faculty_registration_images, name='faculty-registration-images'),
+    path('faculty/<int:pk>', views.UniversityView.as_view(), name='university_view'),
 ]
 
 if settings.DEBUG:

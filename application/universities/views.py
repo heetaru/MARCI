@@ -24,28 +24,28 @@ def fee_view(faculty_id):
 def index(request):
     faculty_list = Faculty.objects.all().distinct()
     filter = FacultyFilter(request.GET, queryset=faculty_list)
-    return render(request, 'universities/fakulty_list.html', {
+    return render(request, 'universities/faculty_list.html', {
         'filter': filter
     })
 
 
-def fakulty_registration(request):
+def faculty_registration(request):
     context = {}
     if request.method == 'POST':
         data = request.POST.dict()
         faculty = Faculty.objects.create(university_name=data['university_name'],
                                          country=data['country'],
                                          city=data['city'],
-                                         fakulty_name=data['fakulty_name'],
+                                         faculty_name=data['faculty_name'],
                                          mail=data['mail'],
                                          university_description=data['university_description'],
                                          )
         request.session['faculty_id'] = faculty.id
-        return redirect("fakulty-registration-degree")
-    return render(request, 'universities/fakulty_registration.html', context)
+        return redirect("faculty-registration-degree")
+    return render(request, 'universities/faculty_registration.html', context)
 
 
-def fakulty_registration_degree(request):
+def faculty_registration_degree(request):
     if request.method == 'POST':
         data = request.POST.dict()
         values = list(data.values())[1:]
@@ -60,11 +60,11 @@ def fakulty_registration_degree(request):
             )
             values = values[3:]
 
-        return redirect("fakulty-registration-images")
-    return render(request, 'universities/fakulty_registration_degree.html', {'fakulty_registration_degree': fakulty_registration_degree})
+        return redirect("faculty-registration-images")
+    return render(request, 'universities/faculty_registration_degree.html', {'faculty_registration_degree': faculty_registration_degree})
 
 
-def fakulty_registration_images(request):
+def faculty_registration_images(request):
     if request.method == 'POST':
         faculty = Faculty.objects.get(id=request.session['faculty_id'])
 
@@ -76,11 +76,11 @@ def fakulty_registration_images(request):
 
         return redirect("university_view", request.session['faculty_id'])
 
-    return render(request, "universities/fakulty_registration_images.html")
+    return render(request, "universities/faculty_registration_images.html")
 
 class UniversityView(DetailView):
     model = Faculty
-    template_name = 'universities/fakulty.html'
+    template_name = 'universities/faculty.html'
     context_object_name = 'university'
 
 
