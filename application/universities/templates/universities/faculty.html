@@ -52,14 +52,22 @@
         </div>
     </div>
 
-    <div class="mt-20 h-full bg-base-100 text-base-color p-30 flex justify-between">
-        <div class="w-3/7">
+    <div class="w-4/5 flex mx-auto text-base-content mt-30">
+        <div class="w-1/2 ml-4 ">
             <h2 class="text-2xl font-bold tracking-wide ">Про нас</h2>
             <span>{{ university.university_description }}</span>
         </div>
-        <div class="bg-base-200 w-3/7 h-1/2">
-
+        <div class="bg-base-200 w-1/2 h-1/2 flex gap-4 p-10">
+             <div class="overflow-hidden relative w-full h-64">
+                  <div id="carousel" class="flex transition-transform duration-700 ease-in-out w-full h-full">
+                      {% for image in additional_images %}
+                        <img src="{{ image.image.url }}" class="w-full object-cover flex-shrink-0" />
+                      {% endfor %}
+                  </div>
+            </div>
         </div>
+    </div>
+    <div class="">
         <div>
             <h2 class="text-2xl font-bold tracking-wide">Ступені освіти</h2>
             {% for degree in university.degrees.all %}
@@ -68,15 +76,20 @@
                 Тривалість: {{ degree.duration }}</div>
             {% endfor %}
         </div>
-    <div>
-        <h2 class="text-2xl font-bold tracking-wide">Зображення</h2>
-{#    Зробити з цього карусельку#}
-        {% for image in additional_images %}
-            {% if image.image.url %} <img src="{{ image.image.url }}"  class="w-52" alt=""> {% else %}<img style="background-color: #ffffff"  class="w-52" alt="">{% endif %}
-            {% comment %}<img src="{{ image.image.url }}"  class="w-52" alt="">{% endcomment %}
-        {% endfor %}
+        <div>
+            <h2 class="text-2xl font-bold tracking-wide">Зображення</h2>
+
     </div>
     </div>
 
+<script>
+    const carousel = document.getElementById('carousel');
+    const slides = carousel.children.length;
+    let index = 0;
 
+    setInterval(() => {
+      index = (index + 1) % slides;
+      carousel.style.transform = `translateX(-${index * 100}%)`;
+    }, 3000);
+</script>
 {% endblock %}

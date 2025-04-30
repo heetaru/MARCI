@@ -3,8 +3,14 @@
 {% block title %} Форма реєстрації факультету | MARCI {% endblock %}
 {% block content %}
 
-    <div class="registration-form flex h-screen">
-      <form class="m-auto w-xs flex flex-col" method="post" action="">
+    <div class="registration-form flex flex-col items-center h-screen">
+    <ul class="steps w-1/2 steps-vertical mt-10 mb-10 lg:steps-horizontal">
+      <li class="step step-primary">Реєстрація даних</li>
+      <li class="step">Налаштування степенів навчання</li>
+      <li class="step">Вибір фото</li>
+      <li class="step">Кінець!</li>
+    </ul>
+      <form class=" w-xs flex flex-col" method="post" action="">
         {% csrf_token %}
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Повна назва вашого університету</legend>

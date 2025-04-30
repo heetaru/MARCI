@@ -2,6 +2,14 @@
 
 {% block title %} Форма реєстрації ступенів навчання | MARCI {% endblock %}
 {% block content %}
+    <div class="w-full flex justify-center">
+        <ul class="steps mt-10 w-1/2 steps-vertical  lg:steps-horizontal">
+          <li class="step step-primary">Реєстрація даних</li>
+          <li class="step step-primary">Налаштування степенів навчання</li>
+          <li class="step">Вибір фото</li>
+          <li class="step">Кінець!</li>
+        </ul>
+    </div>
     <form action="" method="post">
     {% csrf_token %}
         <div class="registration-form flex p-10">
