@@ -28,9 +28,9 @@ class Degree(models.Model):
     faculty = models.ForeignKey(Faculty, related_name="degrees", on_delete=models.CASCADE)
     type = models.IntegerField("Айді ступеня освіти", choices=TYPE_CHOICES)
     duration = models.IntegerField("Тривалість навчання")
-    cost = models.FloatField("Ціна")
+    cost = models.FloatField("Ціна", default=0)
 
 class Image(models.Model):
     faculty = models.ForeignKey(Faculty, related_name="images", on_delete=models.CASCADE)
     type = models.TextField("Тип зображення") #main, logo, additional
-    image = models.ImageField("Зображення", upload_to="media/")
+    image = models.ImageField("Зображення", upload_to="media/", blank=True, null=True)

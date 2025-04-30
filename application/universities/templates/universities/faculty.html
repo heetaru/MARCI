@@ -4,7 +4,9 @@
 {% block content %}
 
     <div class="bg-base-300 w-full h-170 flex flex-col flex-end justify-end gap-5 text-base-content bg-cover"
-        style="background-image: url('{{ main_image.image.url }}');">
+        style="
+{% if main_image.image %}background-image: url('{{ main_image.image.url }}');{% else %}background-color: var(--color-base-content);{% endif %}{% comment %}background-image: url('{{ main_image.image.url }}');{% endcomment %}
+                ">
         <div class="card ml-[10%] bg-base-200 w-1/3 p-10">
             <p class="text-xs">{{ university.university_name }}</p>
             <p class="text-xl font-bold tracking-wide">{{ university.faculty_name }}</p>
@@ -72,7 +74,8 @@
         <h2 class="text-2xl font-bold tracking-wide">Зображення</h2>
 {#    Зробити з цього карусельку#}
         {% for image in additional_images %}
-            <img src="{{ image.image.url }}"  class="w-52" alt="">
+            {% if image.image.url %} <img src="{{ image.image.url }}"  class="w-52" alt=""> {% else %}<img style="background-color: #ffffff"  class="w-52" alt="">{% endif %}
+            {% comment %}<img src="{{ image.image.url }}"  class="w-52" alt="">{% endcomment %}
         {% endfor %}
     </div>
     </div>
