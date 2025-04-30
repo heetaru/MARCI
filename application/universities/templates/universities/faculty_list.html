@@ -5,13 +5,13 @@
 <div class="ml-25 mr-25 h-full">
     <aside class="float-left h-100 w-1/4 bg-[var(--color-base-300)] mr-10">
         <h2 class="text-center mt-4 mb-4">Фільтри</h2>
-        <form action="" method="GET">
+        <form id="filterForm" action="" method="GET">
             <div class="join join-vertical bg-base-100 w-full">
               {% for field in filter.form %}
                 <div class="collapse collapse-arrow join-item border-base-300 border">
-                    <input type="checkbox" name="my-accordion-4" />
+                    <input class="" type="checkbox" name="my-accordion-4" />
                     <div class="collapse-title font-semibold">{{ field.label_tag }}</div>
-                    <div class="collapse-content text-sm">{{ field }}</div>
+                    <div class="collapse-content text-sm filter-checkbox">{{ field }}</div>
                 </div>
               {% endfor %}
             <button type="submit" class="btn">Пошук</button>
@@ -21,22 +21,8 @@
             </div>
         </form>
     </aside>
-<div class="flex flex-col items-center gap-5">
-
-{% for faculty in filter.qs %}
-    <div class="card w-full bg-base-100 card-md shadow-sm border ml-4 mr-4">
-    <a class="inline-block" href="{% url 'university_view' faculty.id %}" >
-        <div class="card-body">
-
-            <h2 class="card-title"> {{ faculty.university_name }}</h2>
-            <p>{{ faculty.faculty_name }}</p>
-            <p>{{ university.region }}</p>
-        </div>
-    </a>
-    </div>
-  {% empty %}
-    <h2 class="mt-10 font-bold ">Нічого не знайдено!!</h2>
-  {% endfor %}
+<div class="flex flex-col items-center gap-5" id="facultyResults">
+    {% include 'universities/faculty_template.html' %}
     </div>
 </div>
 
@@ -49,6 +35,28 @@
              console.log(checkboxes)
             })
 
+         document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById('filterForm');
+
+    document.querySelectorAll('.filter-checkbox').forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            const formData = new FormData(form);
+            const paramsа = new URLSearchParams(formData).toString();
+
+            fetch("{{ request.path }}?" + params, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('facultyResults').innerHTML = data.html;  // <- правильна вставка
+            })
+            .catch(error => console.error('Помилка:', error));
+        });
+    });
+});
 
 
 

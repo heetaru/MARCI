@@ -1,0 +1,13 @@
+{% for faculty in filter.qs %}
+    <div class="card w-full bg-base-100 card-md shadow-sm border ml-4 mr-4">
+        <a class="inline-block" href="{% url 'university_view' faculty.id %}">
+            <div class="card-body">
+                <h2 class="card-title">{{ faculty.university_name }}</h2>
+                <p>{{ faculty.faculty_name }}</p>
+                <p>{{ faculty.region }}</p>
+            </div>
+        </a>
+    </div>
+{% empty %}
+    <h2 class="mt-10 font-bold">Нічого не знайдено!!</h2>
+{% endfor %}
