@@ -21,7 +21,7 @@
                     <span>Ступені навчання!</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <i class="fa-solid fa-briefcase text-xl"></i>
+                    <i class="fa-solid fa-money-check-dollar text-xl"></i>
                     <h2 class="text-xl font-bold tracking-wide">
                         {% if has_free and has_paid %}
                             Безкоштовне/Платне
@@ -39,14 +39,11 @@
                     <span>Регіон</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <i class="fa-solid fa-money-check-dollar text-xl"></i>
+                    <i class="fa-solid fa-star text-xl"></i>
                     <h2 class="text-xl font-bold tracking-wide ">
-                        Вересень
-                        {% load static %}
-                        {% now "Y" as current_year %}
-                        {{ current_year }}
+                        4.5
                     </h2>
-                    <span>Дата початку</span>
+                    <span>Рейтинг</span>
                 </div>
             </div>
         </div>
@@ -74,8 +71,10 @@
                 <div>{{ degree.get_type_display }}
                 Ціна: {{ degree.cost }}
                 Тривалість: {{ degree.duration }}</div>
+                Дата початку: {{ degree.semester_start }}
             {% endfor %}
         </div>
+
         <div>
             <h2 class="text-2xl font-bold tracking-wide">Зображення</h2>
 

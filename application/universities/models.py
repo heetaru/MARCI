@@ -1,5 +1,5 @@
 from django.db import models
-
+import datetime
 class Faculty(models.Model):
     university_name = models.TextField("Назва університету")
     faculty_name = models.TextField("Назва факультету")
@@ -27,8 +27,9 @@ class Degree(models.Model):
 
     faculty = models.ForeignKey(Faculty, related_name="degrees", on_delete=models.CASCADE)
     type = models.IntegerField("Айді ступеня освіти", choices=TYPE_CHOICES)
-    duration = models.IntegerField("Тривалість навчання")
+    duration = models.FloatField("Тривалість навчання")
     cost = models.FloatField("Ціна", default=0)
+    semester_start = models.DateField("Дата початку семестру", default=datetime.date.today())
 
 class Image(models.Model):
     faculty = models.ForeignKey(Faculty, related_name="images", on_delete=models.CASCADE)

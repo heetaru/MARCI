@@ -61,9 +61,10 @@ def faculty_registration_degree(request):
                 faculty=faculty,
                 type=values[0],
                 duration=values[1],
-                cost=values[2]
+                cost=values[2],
+                semester_start=values[3]
             )
-            values = values[3:]
+            values = values[4:]
 
         return redirect("faculty-registration-images")
     return render(request, 'universities/faculty_registration_degree.html', {'faculty_registration_degree': faculty_registration_degree})

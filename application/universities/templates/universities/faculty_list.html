@@ -14,7 +14,6 @@
                     <div class="collapse-content text-sm filter-checkbox">{{ field }}</div>
                 </div>
               {% endfor %}
-            <button type="submit" class="btn">Пошук</button>
             {% if request.GET %}
                 <a href="{% url 'list' %}" class="btn">Скинути фільтри</a>
             {% endif %}
