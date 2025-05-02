@@ -1,8 +1,8 @@
 from django.db import models
 
 class Faculty(models.Model):
-    university_name = models.CharField("Назва університету")
-    faculty_name = models.CharField("Назва факультету")
+    university_name = models.TextField("Назва університету")
+    faculty_name = models.TextField("Назва факультету")
     country = models.TextField("Країна")
     city = models.TextField("Місто")
     mail = models.TextField("Пошта")

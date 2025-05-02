@@ -41,7 +41,7 @@
     document.querySelectorAll('.filter-checkbox').forEach(function(checkbox) {
         checkbox.addEventListener('change', function() {
             const formData = new FormData(form);
-            const paramsа = new URLSearchParams(formData).toString();
+            const params = new URLSearchParams(formData).toString();
 
             fetch("{{ request.path }}?" + params, {
                 method: 'GET',

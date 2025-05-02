@@ -27,7 +27,7 @@ def index(request):
     faculty_list = Faculty.objects.all().distinct()
     filter = FacultyFilter(request.GET, queryset=faculty_list)
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        html = render_to_string('universities/faculty_template1.html', {'filter': filter})
+        html = render_to_string('universities/faculty_template.html', {'filter': filter})
         return JsonResponse({'html': html})
     return render(request, 'universities/faculty_list.html', {
         'filter': filter
