@@ -40,7 +40,7 @@
                 </div>
                 <div class="flex flex-col items-center">
                     <i class="fa-solid fa-star text-xl"></i>
-                    <h2 class="text-xl font-bold tracking-wide ">
+                    <h2 class="text-xl font-bold tracking-wide">
                         4.5
                     </h2>
                     <span>Рейтинг</span>
@@ -80,10 +80,22 @@
         <div class="w-full bg-base-200 p-6 ml-4 rounded-box shadow-md">
             {% for degree in university.degrees.all %}
                 <div id="{{ degree.type }}" class="tab-content hidden">
-                    <h2 class="text-xl font-bold">{{ degree.get_type_display }}</h2>
-                    <p> Ціна: {{ degree.cost }} </p>
-                    <p> Тривалість: {{ degree.duration }} </p>
-                    <p> Дата початку: {{ degree.semester_start }} </p>
+                    <h2 class="text-xl font-bold mb-5">{{ degree.get_type_display }}</h2>
+                    <div class="flex flex-col gap-5">
+                        <div class="flex flex-col pb-5 border-b border-[var(--color-base-content)]">
+                            <h2 class="text-l font-bold tracking-wide">Ціна</h2>
+                            <span>{{ degree.cost }}</span>
+                        </div>
+                        <div class="flex flex-col pb-5 border-b border-[var(--color-base-content)]">
+                            <h2 class="text-l font-bold tracking-wide">Тривалість</h2>
+                            <span>{{ degree.duration }}</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <h2 class="text-l font-bold tracking-wide">Дата початку</h2>
+                            <span>{{ degree.semester_start }}</span>
+                        </div>
+
+                    </div>
                 </div>
           {% endfor %}
                 <div id="admission_requirements" class="tab-content hidden">

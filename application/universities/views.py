@@ -56,7 +56,7 @@ def faculty_registration_degree(request):
         values = list(data.values())[1:]
         faculty = Faculty.objects.get(id=request.session['faculty_id'])
 
-        for i in range(len(values)//3):
+        for i in range(len(values)//4):
             Degree.objects.create(
                 faculty=faculty,
                 type=values[0],
