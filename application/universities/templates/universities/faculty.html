@@ -4,7 +4,7 @@
 {% block content %}
 
     <div class="bg-base-300 w-full h-170 flex flex-col flex-end justify-end gap-5 text-base-content bg-cover"
-        style="{% if main_image.image %}background-image: url('{{ main_image.image.url }}');{% else %}background-color: var(--color-base-content);{% endif %}{% comment %}background-image: url('{{ main_image.image.url }}');{% endcomment %}">
+        style="{% if main_image.image %}background-image: url('{{ main_image.image.url }}');{% else %}background-color: var(--color-base-content);{% endif %}">
         <div class="card ml-[10%] bg-base-200 w-1/3 p-10">
             <p class="text-xs">{{ university.university_name }}</p>
             <p class="text-xl font-bold tracking-wide">{{ university.faculty_name }}</p>
@@ -64,24 +64,66 @@
             </div>
         </div>
     </div>
-    <div class="">
-        <div>
-            <h2 class="text-2xl font-bold tracking-wide">Ступені освіти</h2>
-            {% for degree in university.degrees.all %}
-                <div>{{ degree.get_type_display }}
-                Ціна: {{ degree.cost }}
-                Тривалість: {{ degree.duration }}</div>
-                Дата початку: {{ degree.semester_start }}
-            {% endfor %}
+
+    <div class="w-4/5 mx-auto flex mt-5">
+        <div class="w-1/4">
+            <ul class="menu w-full bg-base-200 rounded-box">
+                {% for degree in university.degrees.all %}
+                    <li><button onclick="showTab(this, '{{ degree.type }}')">{{ degree.get_type_display }}</button></li>
+                {% endfor %}
+                <li><button onclick="showTab(this, 'admission_requirements')">Вимоги до вступу</button></li>
+                <li><button onclick="showTab(this, 'programme_structure')">Структура програми</button></li>
+                <li><button onclick="showTab(this, 'fees_funding')">Плата за навчання та фінансування</button></li>
+            </ul>
         </div>
 
-        <div>
-            <h2 class="text-2xl font-bold tracking-wide">Зображення</h2>
-
-    </div>
+        <div class="w-full bg-base-200 p-6 ml-4 rounded-box shadow-md">
+            {% for degree in university.degrees.all %}
+                <div id="{{ degree.type }}" class="tab-content hidden">
+                    <h2 class="text-xl font-bold">{{ degree.get_type_display }}</h2>
+                    <p> Ціна: {{ degree.cost }} </p>
+                    <p> Тривалість: {{ degree.duration }} </p>
+                    <p> Дата початку: {{ degree.semester_start }} </p>
+                </div>
+          {% endfor %}
+                <div id="admission_requirements" class="tab-content hidden">
+                    <h2 class="text-xl font-bold">Вимоги до вступу</h2>
+                    <p> бла бла бла про вступ</p>
+                </div>
+                <div id="programme_structure" class="tab-content hidden">
+                    <h2 class="text-xl font-bold">Структура програми</h2>
+                    <p> Потна учоба</p>
+                </div>
+                <div id="fees_funding" class="tab-content hidden">
+                    <h2 class="text-xl font-bold">Плата за навчання та фінансування</h2>
+                    <p> Багато денег треба </p>
+                </div>
+        </div>
     </div>
 
 <script>
+    function showTab(button, id) {
+        document.querySelectorAll('.tab-content').forEach(tab => {
+          tab.classList.add('hidden');
+          tab.style.display = 'none';
+
+        });
+
+        // Показати потрібну вкладку
+        document.getElementById(id).classList.remove('hidden');
+        document.getElementById(id).style.display = 'block';
+
+
+
+        // Видалити активний стиль з усіх кнопок
+        document.querySelectorAll('.menu li button').forEach(btn => {
+          btn.classList.remove('active', 'font-semibold');
+        });
+
+        // Додати активний стиль до натиснутої кнопки
+        button.classList.add('active', 'font-semibold');
+  }
+
     const carousel = document.getElementById('carousel');
     const slides = carousel.children.length;
     let index = 0;
