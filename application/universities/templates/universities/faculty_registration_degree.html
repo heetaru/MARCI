@@ -59,39 +59,73 @@
                 <button type="button" onclick="addDegree()" class="btn btn-active btn-success">+</button>
             </div>
             <div class="h-1/3 items-center flex ml-10">
-                <button type="submit" value="submit" id="submitButton" class="btn btn-active btn-success">Success</button>
+                <button type="submit" value="submit" id="submitButton" class="btn btn-active btn-success">Зберегти</button>
             </div>
         </div>
     </form>
         <script>
-
             let form = null;
-            let clonedForm = null;
+            let formIndex = 0;
+
             document.addEventListener("DOMContentLoaded", function () {
                 form = document.querySelector('#form');
-                clonedForm = form.cloneNode(true);
-            })
+            });
 
             function addDegree() {
                 let container = document.getElementById("container");
-                container.appendChild(clonedForm);
-                clonedForm = form.cloneNode(true);
 
-                let index = 0;
-                let section_list = document.querySelectorAll('select');
-                section_list.forEach((section) => {
-                    section.setAttribute('name', `input_${index}`);
+                // Клонуємо оригінальну форму (не клоновану раніше)
+                let newForm = form.cloneNode(true);
+
+                // Очистимо всі значення інпута
+                newForm.querySelectorAll('input').forEach((input) => {
+                    if (input.type !== 'hidden') {
+                        input.value = '';  // очищаємо значення (іменно то, чого нам не хватало у коді.
+                        // я не дуже розумію чому ми копіруєм самий начальний контейнер але потім його
+                        // копіюючи нам і так надо очищати якусь інпути якшо ми копіруєм прям начальний
+                        // де не має бути ніякої інфи але ну без цього не працює тому хай буде.)
+
+
+                    }
+                });
+
+                // Скидаємо вибрані значення селекта (опять же не розумію але реально без цього не працює, я пробував)
+                newForm.querySelectorAll('select').forEach((select) => {
+                    select.selectedIndex = 0;  // скидаємо вибір
+                });
+
+                // Додаємо нову форму до контейнера
+                container.appendChild(newForm);
+
+                // Присвоюємо унікальні name всім input та select у новій формі
+                // (цього нам тоже не хватало вроді бо у нас нейми повторювались і це чутуь біда)
+                let index = formIndex;
+
+                // Обробляємо селект
+                newForm.querySelectorAll('select').forEach((section) => {
+                    section.setAttribute('name', `degree_type_${index}`);
                     index++;
-                })
+                });
 
-                index = 0;
-                let input_list = document.querySelectorAll('input');
-                input_list.forEach((input) => {
-                    if (input.getAttribute('name') != 'csrfmiddlewaretoken') {
+                // Обробляємо інпут
+                newForm.querySelectorAll('input').forEach((input) => {
+                    if (input.getAttribute('name') !== 'csrfmiddlewaretoken') {
                         input.setAttribute('name', `input_${index}`);
                         index++;
                     }
-                })
+                });
+
+                //обновляєм індекс для наступних інпутів
+                formIndex = index;
             }
+            // дуже надіюсь шо ти поняв шо від нас хоче чат гпт і шо конкретно
+            // він написав і будеш вчитися на своїх помилках йобаний алігофрен.
+            // 3 дня фіксив баг і по ітогу його пофіксив чат гпт зхахахпх.
+            // хотя по правді кажучи я раз 100 перебивав йому запрос бо він мені якусь
+            // відверту фігню запропонував як фіксити цей баг, тому мені прийшлось самому
+            // розбиратися в чому баг і тоді йому задавати конкретну задачу: зроби так шоб не
+            // клонірувались данні в інпутах. опять же я не розумію чому вони клоніруються без
+            // очищення якшо ми сука копіруєм саму начальну форму контейнера без ніяких данних,
+            // але сука хай уже буде.
         </script>
 {% endblock %}
