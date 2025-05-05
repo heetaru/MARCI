@@ -3,8 +3,9 @@ from django.views.generic import DetailView
 from django.http import JsonResponse
 from .filters import FacultyFilter
 from django.template.loader import render_to_string
-
+from datetime import date
 from .models import Faculty, Degree, Image
+
 
 def fee_view(faculty_id):
     faculty = Faculty.objects.get(id=faculty_id)
@@ -57,12 +58,26 @@ def faculty_registration_degree(request):
         faculty = Faculty.objects.get(id=request.session['faculty_id'])
 
         for i in range(len(values)//4):
+            raw_type = values[0]
+            raw_duration = values[1]
+            raw_cost = values[2]
+            raw_start = values[3]
+
+            # Обробка cost
+            cost = float(raw_cost) if raw_cost.strip() != "" else 0.0
+
+            # Обробка semester_start
+            try:
+                semester_start = date.fromisoformat(raw_start)
+            except (ValueError, TypeError):
+                semester_start = date.today()
+
             Degree.objects.create(
                 faculty=faculty,
-                type=values[0],
-                duration=values[1],
-                cost=values[2],
-                semester_start=values[3]
+                type=raw_type,
+                duration=raw_duration,
+                cost=cost,
+                semester_start=semester_start
             )
             values = values[4:]
 

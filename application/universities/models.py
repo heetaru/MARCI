@@ -28,8 +28,8 @@ class Degree(models.Model):
     faculty = models.ForeignKey(Faculty, related_name="degrees", on_delete=models.CASCADE)
     type = models.IntegerField("Айді ступеня освіти", choices=TYPE_CHOICES)
     duration = models.FloatField("Тривалість навчання")
-    cost = models.FloatField("Ціна", default=0)
-    semester_start = models.DateField("Дата початку семестру", default=datetime.date.today())
+    cost = models.FloatField("Ціна", default=0, blank=True, null=True)
+    semester_start = models.DateField("Дата початку семестру", default=datetime.date.today, blank=True, null=True)
 
 class Image(models.Model):
     faculty = models.ForeignKey(Faculty, related_name="images", on_delete=models.CASCADE)
