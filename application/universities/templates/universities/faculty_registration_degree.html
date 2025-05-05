@@ -14,8 +14,8 @@
     {% csrf_token %}
         <div class="registration-form flex p-10">
             <div id="container" class="w-1/2">
-                <div id="form" class="card bg-base-200 border-2 mb-4 border-base-300 p-4">
-                    <div class="w-auto flex flex-col gap-3">
+                <div id="" class="our_form  card flex-row justify-between flex bg-base-200 border-2 flex mb-4 border-base-300 p-4">
+                    <div class="w-2/3 flex flex-col gap-3">
                         <fieldset class="fieldset">
                           <legend class="fieldset-legend">Виберіть ступінь освіти</legend>
                           <select name="degree_type" class="select">
@@ -53,6 +53,9 @@
                             <input name="semester_start" type="date" class="input" />
                         </fieldset>
                     </div>
+                    <div class="">
+                        <button type="button" onclick="removeDegree(this)" class="btn btn-active btn-success">-</button>
+                    </div>
                 </div>
             </div>
             <div class="h-1/3 items-center flex ml-10">
@@ -68,7 +71,7 @@
             let formIndex = 0;
 
             document.addEventListener("DOMContentLoaded", function () {
-                form = document.querySelector('#form');
+                form = document.querySelector('.our_form');
             });
 
             function addDegree() {
@@ -127,5 +130,13 @@
             // клонірувались данні в інпутах. опять же я не розумію чому вони клоніруються без
             // очищення якшо ми сука копіруєм саму начальну форму контейнера без ніяких данних,
             // але сука хай уже буде.
+
+            function removeDegree(button) {
+                const deleteForm = button.closest('.our_form');
+                const forms = document.querySelectorAll('.our_form');
+                    if (forms.length > 1) {
+                        deleteForm.remove();
+                    }
+            }
         </script>
 {% endblock %}
