@@ -2,8 +2,122 @@
 
 {% block title %} Зареєструвати аккаунт | MARCI {% endblock %}
 {% block content %}
+    <div class="text-center flex justify-center">
+        <form class=" w-xs flex flex-col" method="post" action="">
+        {% csrf_token %}
+            <h1 class="text-xl">Створіть аккаунт разом з MARCI</h1>
+            <br>
+            <fieldset class="fieldset">
+                <legend class="fieldset-legend">Імʼя, прізвище</legend>
+                <label class="input validator">
+                  <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g
+                      stroke-linejoin="round"
+                      stroke-linecap="round"
+                      stroke-width="2.5"
+                      fill="none"
+                      stroke="currentColor"
+                    >
+                      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </g>
+                  </svg>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Станіслав Шкіра"
+                    pattern="[А-ЩЬЮЯЄІЇҐа-щьюяєіїґA-Za-z][А-ЩЬЮЯЄІЇҐа-щьюяєіїґA-Za-z\-' ]*"
+                    maxlength="100"
+                    title="Введіть ваше імʼя"
+                  />
+                </label>
+                <p class="validator-hint hidden text-xs ">
+                  Ваше імʼя не може містити цифри або знаки
+                </p>
+            </fieldset>
+            <fieldset class="fieldset">
+              <legend class="fieldset-legend">Електронна пошта</legend>
+              <label class="input validator">
+                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></g></svg>
+                <input
+                        name="mail"
+                        type="email"
+                        placeholder="mail@gmail.com"
+                        oninput="handleInput()"
+                        required/>
 
-Створіть аккаунт разом з MARCI
+              </label>
+                <p class="validator-hint hidden text-xs ">
+                  Такої пошти не існує
+                </p>
+            </fieldset>
+            <fieldset class="fieldset">
+                <legend class="fieldset-legend">Введіть пароль</legend>
+                <label class="input validator">
+                  <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g
+                      stroke-linejoin="round"
+                      stroke-linecap="round"
+                      stroke-width="2.5"
+                      fill="none"
+                      stroke="currentColor"
+                    >
+                      <path
+                        d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"
+                      ></path>
+                      <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                    </g>
+                  </svg>
+                  <input
+                    type="password"
+                    required
+                    placeholder="Password"
+                    minlength="8"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    title="Пароль має мати більше 8 символів, включаючи цифри, велику та маленьку букву"
+                  />
+                </label>
+                <p class="validator-hint hidden">
+                    Пароль має мати більше 8 символів, <br>
+                    включаючи як мінімум одну цифру, <br>
+                    мінімум одну велику та одну маленьку букву
+                </p>
+            </fieldset>
+            <fieldset class="fieldset">
+                <legend class="fieldset-legend">Повторіть пароль</legend>
+            <label class="input validator">
+              <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke-width="2.5"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"
+                  ></path>
+                  <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                </g>
+              </svg>
+              <input
+                type="password"
+                required
+                placeholder="Password"
+                minlength="8"
+                pattern=""
+                title="Пароль має мати більше 8 символів, включаючи цифри, велику та маленьку букву"
+              />
+            </label>
+            <p class="validator-hint hidden">
+                Паролі не співпадають
+            </p>
+            </fieldset>
+            <button type="submit" id="submitButton" class="btn btn-active btn-success mt-4">Далі</button>
+        </form>
+    </div>
+
+
 
 
 {% endblock %}
