@@ -23,12 +23,13 @@
                     </g>
                   </svg>
                   <input
-                    type="text"
-                    required
-                    placeholder="Станіслав Шкіра"
-                    pattern="[А-ЩЬЮЯЄІЇҐа-щьюяєіїґA-Za-z][А-ЩЬЮЯЄІЇҐа-щьюяєіїґA-Za-z\-' ]*"
-                    maxlength="100"
-                    title="Введіть ваше імʼя"
+                          name="user_name"
+                        type="text"
+                        required
+                        placeholder="Станіслав Шкіра"
+                        pattern="[А-ЩЬЮЯЄІЇҐа-щьюяєіїґA-Za-z][А-ЩЬЮЯЄІЇҐа-щьюяєіїґA-Za-z\-' ]*"
+                        maxlength="100"
+                        title="Введіть ваше імʼя"
                   />
                 </label>
                 <p class="validator-hint hidden text-xs ">
@@ -40,10 +41,9 @@
               <label class="input validator">
                 <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></g></svg>
                 <input
-                        name="mail"
+                        name="user_mail"
                         type="email"
                         placeholder="mail@gmail.com"
-                        oninput="handleInput()"
                         required/>
 
               </label>
@@ -69,6 +69,8 @@
                     </g>
                   </svg>
                   <input
+                          id="user_password"
+                          name="user_password"
                     type="password"
                     required
                     placeholder="Password"
@@ -85,7 +87,7 @@
             </fieldset>
             <fieldset class="fieldset">
                 <legend class="fieldset-legend">Повторіть пароль</legend>
-            <label class="input validator">
+            <label id="label_password_confirm" class="input validator">
               <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <g
                   stroke-linejoin="round"
@@ -101,15 +103,16 @@
                 </g>
               </svg>
               <input
+                      id="user_password_confirm"
+                      name="user_password_confirmation"
                 type="password"
                 required
                 placeholder="Password"
                 minlength="8"
-                pattern=""
                 title="Пароль має мати більше 8 символів, включаючи цифри, велику та маленьку букву"
               />
             </label>
-            <p class="validator-hint hidden">
+            <p id="confirm_text" class="validator-hint hidden text-xs ">
                 Паролі не співпадають
             </p>
             </fieldset>
@@ -118,6 +121,32 @@
     </div>
 
 
+<script>
+  function validatePasswords() {
+    const password = document.getElementById('user_password');
+    const passwordConfirm = document.getElementById('user_password_confirm');
+    const confirmText = document.getElementById('confirm_text');
+    const confirmLabel = document.getElementById('label_password_confirm');
+
+    passwordConfirm.addEventListener('input', () => {
+    if (passwordConfirm.value === password.value) {
+        confirmText.style.visibility = 'hidden';
+        confirmText.style.display = 'none';
+        confirmText.classList.remove('text-red-500');
+        confirmLabel.classList.remove('border-red-500');
+        console.log("Ваш пароль введено");
+    } else {
+        confirmText.classList.add('text-red-500');
+        confirmLabel.classList.add('border-red-500');
+      confirmText.style.visibility = 'visible';
+      confirmText.style.display = 'block';
+    }
+  });
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    validatePasswords();
+  });
+</script>
 
 
 {% endblock %}
