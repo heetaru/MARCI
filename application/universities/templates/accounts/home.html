@@ -1,0 +1,11 @@
+{% extends 'universities/layout.html' %}
+
+{% block title %} Увійти в аккаунт | MARCI {% endblock %}
+{% block content %}
+    {% if request.session.student_name %}
+  <p>Привіт, {{ request.session.student_name }}. Це безполезна вкладка, поплач</p>
+  <a href="{% url 'logout' %}">Вийти</a>
+{% else %}
+  <a href="{% url 'login' %}">Увійти</a>
+{% endif %}
+{% endblock %}
