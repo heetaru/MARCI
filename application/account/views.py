@@ -13,7 +13,7 @@ def register_view(request):
             user_password=make_password(data['user_password'])
         )
         return redirect('login')
-    return render(request, 'accounts/registration.html')
+    return render(request, 'account/registration.html')
 
 
 def login_view(request):
@@ -26,12 +26,17 @@ def login_view(request):
         if student and check_password(user_password_login, student.user_password):
             request.session['student_id'] = student.id
             request.session['student_name'] = student.user_name
-            return redirect('home')
+            return redirect('account')
 
-    return render(request, 'accounts/login.html')
+    return render(request, 'account/login.html')
 
 
 def home_view(request):
     if not request.session.get('student_id'):
         return redirect('login')
-    return render(request, 'accounts/home.html', {'name': request.session['student_name']})
+    return render(request, 'account/account.html', {'name': request.session['student_name']})
+
+def account_view(request):
+    if 'student_id' not in request.session:
+        return redirect('login')
+    return render(request, 'account/account.html')
