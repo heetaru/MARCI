@@ -2,12 +2,26 @@
 
 {% block title %} Увійти в аккаунт | MARCI {% endblock %}
 {% block content %}
-<h1>Акаунт користувача</h1>
+    <div class="">
+        <div class="w-full flex flex-col p-15">
+            <h1 class="text-4xl font-bold mb-3">Привіт {{ request.session.student_name }},</h1>
+            <h1 class="text-3xl">Ласкаво просимо</h1>
+        </div>
+        <div class="w-full tabs tabs-lift">
+          <input style="" type="radio" name="my_tabs_3" class="tab ml-12" aria-label="Про мене" />
+          <div class="tab-content bg-base-100 border-base-300 p-6">якісь чекбокси, не суть</div>
 
-    <div class="tab-links">
+          <input type="radio" name="my_tabs_3" class="tab" aria-label="Вам сподобалось" checked="checked" />
+          <div class="tab-content bg-base-100 border-base-300 p-6">тут тіпа універи які ти лайкнув</div>
+
+          <input type="radio" name="my_tabs_3" class="tab" aria-label="Вам МОЖЕ сподобатися" />
+          <div class="tab-content bg-base-100 border-base-300 p-6">Tab content 3</div>
+        </div>
+    </div>
+{% endblock %}
+    {% comment %}<div class="tab-links">
         <a href="#tab:profile">Профіль</a>
         <a href="#tab:settings">Налаштування</a>
-        <a href="#tab:logout">Вийти</a>
     </div>
 
     <div id="tab-profile" class="tab-content">
@@ -18,11 +32,6 @@
     <div id="tab-settings" class="tab-content">
         <h2>Налаштування</h2>
         <p>Тут будуть налаштування акаунта.</p>
-    </div>
-
-    <div id="tab-logout" class="tab-content">
-        <h2>Вихід</h2>
-        <p><a href="{% url 'logout' %}">Натисніть тут, щоб вийти</a></p>
     </div>
 
     <script>
@@ -40,5 +49,4 @@
 
         window.addEventListener('hashchange', showTabFromHash);
         window.addEventListener('DOMContentLoaded', showTabFromHash);
-    </script>
-{% endblock %}
+    </script>{% endcomment %}

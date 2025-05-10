@@ -31,12 +31,11 @@ def login_view(request):
     return render(request, 'account/login.html')
 
 
-def home_view(request):
-    if not request.session.get('student_id'):
-        return redirect('login')
-    return render(request, 'account/account.html', {'name': request.session['student_name']})
-
 def account_view(request):
     if 'student_id' not in request.session:
         return redirect('login')
     return render(request, 'account/account.html')
+
+def logout_view(request):
+    request.session.flush()
+    return redirect('login')

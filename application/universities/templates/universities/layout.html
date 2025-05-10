@@ -8,9 +8,6 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        .tab-links a { margin-right: 10px; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 
@@ -96,8 +93,8 @@
   <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow text-left">
     {% if request.session.student_name %}
         <li><a href="{% url 'account' %}">Мій профіль</a></li>
-        <li><a href="{% url 'register' %}">Налаштування акаунту</a></li>
-        <li><a href="{% url 'register' %}">Вийти</a></li>
+        <li><a href="{% url 'register' %}" disabled>Налаштування акаунту</a></li>
+        <li><a href="{% url 'logout' %}">Вийти</a></li>
     {% else %}
         <li><a href="{% url 'register' %}">Зареєструватися</a></li>
         <li><a href="{% url 'login' %}">Увійти</a></li>
