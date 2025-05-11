@@ -8,7 +8,7 @@
             <h1 class="text-xl">Створіть аккаунт разом з MARCI</h1>
             <br>
             <fieldset class="fieldset">
-                <legend class="fieldset-legend">Імʼя, прізвище</legend>
+                <legend class="fieldset-legend">Імʼя</legend>
                 <label class="input validator">
                   <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <g
@@ -26,8 +26,8 @@
                           name="user_name"
                         type="text"
                         required
-                        placeholder="Станіслав Шкіра"
-                        pattern="[А-ЩЬЮЯЄІЇҐа-щьюяєіїґA-Za-z][А-ЩЬЮЯЄІЇҐа-щьюяєіїґA-Za-z\-' ]*"
+                        placeholder="Імʼя"
+                        pattern="[А-ЩЬЮЯЄІЇҐа-щьюяєіїґA-Za-z][А-ЩЬЮЯЄІЇҐа-щьюяєіїґA-Za-z ]*"
                         maxlength="100"
                         title="Введіть ваше імʼя"
                   />
@@ -73,9 +73,9 @@
                           name="user_password"
                     type="password"
                     required
-                    placeholder="Password"
-                    minlength="8"
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    placeholder="Пароль"
+                    {% comment %}minlength="8"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"{% endcomment %}
                     title="Пароль має мати більше 8 символів, включаючи цифри, велику та маленьку букву"
                   />
                 </label>
@@ -108,7 +108,9 @@
                 type="password"
                 required
                 placeholder="Password"
+{% comment %}
                 minlength="8"
+{% endcomment %}
                 title="Пароль має мати більше 8 символів, включаючи цифри, велику та маленьку букву"
               />
             </label>

@@ -19,9 +19,9 @@ def register_view(request):
 def login_view(request):
     if request.method == 'POST':
         data = request.POST
-        user_name_login = data['user_name_login']
+        user_mail_login = data['user_mail_login']
         user_password_login = data['user_password_login']
-        student = Students.objects.filter(user_name=user_name_login).first()
+        student = Students.objects.filter(user_mail=user_mail_login).first()
 
         if student and check_password(user_password_login, student.user_password):
             request.session['student_id'] = student.id

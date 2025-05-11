@@ -22,8 +22,8 @@
       <ul
         tabindex="0"
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-        <li><a href="{% url 'list' %}">Список університетів</a></li>
-        <li><a href="{% url 'registration' %}">Зареєструвати факультет</a></li>
+            <li><a href="{% url 'list' %}">Список університетів</a></li>
+            <li><a href="{% url 'faculty_registration' %}">Зареєструвати факультет</a></li>
       </ul>
     </div>
   </div>
@@ -93,10 +93,10 @@
   <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow text-left">
     {% if request.session.student_name %}
         <li><a href="{% url 'account' %}">Мій профіль</a></li>
-        <li><a href="{% url 'register' %}" disabled>Налаштування акаунту</a></li>
+        <li><a href="{% url 'user_registration' %}" disabled>Налаштування акаунту</a></li>
         <li><a href="{% url 'logout' %}">Вийти</a></li>
     {% else %}
-        <li><a href="{% url 'register' %}">Зареєструватися</a></li>
+        <li><a href="{% url 'user_registration' %}">Зареєструватися</a></li>
         <li><a href="{% url 'login' %}">Увійти</a></li>
     {% endif %}
   </ul>
