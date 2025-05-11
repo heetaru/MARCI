@@ -9,3 +9,6 @@ class Students(models.Model):
     def __str__(self):
         return self.user_name
 
+class SavedFaculty(models.Model):
+    student = models.ForeignKey(Students, related_name="saved_faculty", on_delete=models.CASCADE)
+    faculty_id = models.IntegerField("Айді факультету")

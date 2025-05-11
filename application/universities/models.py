@@ -9,8 +9,9 @@ class Faculty(models.Model):
     university_description = models.TextField("Опис")
 
 
-    def str(self):
+    def __str__(self):
         return self.university_name
+
 
     class Meta:
         verbose_name = 'Університет'
@@ -31,7 +32,19 @@ class Degree(models.Model):
     cost = models.FloatField("Ціна", default=0, blank=True, null=True)
     semester_start = models.DateField("Дата початку семестру", default=datetime.date.today, blank=True, null=True)
 
+    def __str__(self):
+        return f"{self.faculty.university_name} || {self.get_type_display()}"
+
+    class Meta:
+        verbose_name = 'Ступінь навчання'
+        verbose_name_plural = 'Ступені навчання'
+
 class Image(models.Model):
     faculty = models.ForeignKey(Faculty, related_name="images", on_delete=models.CASCADE)
     type = models.TextField("Тип зображення") #main, logo, additional
     image = models.ImageField("Зображення", upload_to="media/", blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Фото університету'
+        verbose_name_plural = 'Фото університетів'
+

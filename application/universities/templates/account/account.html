@@ -19,34 +19,3 @@
         </div>
     </div>
 {% endblock %}
-    {% comment %}<div class="tab-links">
-        <a href="#tab:profile">Профіль</a>
-        <a href="#tab:settings">Налаштування</a>
-    </div>
-
-    <div id="tab-profile" class="tab-content">
-        <h2>Профіль</h2>
-        <p>Ваше імʼя: {{ request.session.student_name }}</p>
-    </div>
-
-    <div id="tab-settings" class="tab-content">
-        <h2>Налаштування</h2>
-        <p>Тут будуть налаштування акаунта.</p>
-    </div>
-
-    <script>
-        function showTabFromHash() {
-            const hash = location.hash || '#tab:profile';
-            const tabName = hash.split(':')[1];
-
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-
-            const target = document.getElementById('tab-' + tabName);
-            if (target) {
-                target.classList.add('active');
-            }
-        }
-
-        window.addEventListener('hashchange', showTabFromHash);
-        window.addEventListener('DOMContentLoaded', showTabFromHash);
-    </script>{% endcomment %}

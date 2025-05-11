@@ -6,17 +6,14 @@
     <aside class="float-left h-100 w-1/4 bg-[var(--color-base-300)] mr-10">
         <h2 class="text-center mt-4 mb-4">Фільтри</h2>
         <form id="filterForm" action="" method="GET">
-            <div class="join join-vertical bg-base-100 w-full">
+            <div class="join filter-checkbox join-vertical bg-base-100 w-full">
               {% for field in filter.form %}
                 <div class="collapse collapse-arrow join-item border-base-300 border">
                     <input class="" type="checkbox" name="my-accordion-4" />
                     <div class="collapse-title font-semibold">{{ field.label_tag }}</div>
-                    <div class="collapse-content text-sm filter-checkbox">{{ field }}</div>
+                    <div class="collapse-content text-sm">{{ field }}</div>
                 </div>
               {% endfor %}
-            {% if request.GET %}
-                <a href="{% url 'list' %}" class="btn">Скинути фільтри</a>
-            {% endif %}
             </div>
         </form>
     </aside>
@@ -27,10 +24,12 @@
 
     <script>
          document.addEventListener("DOMContentLoaded", (event) => {
-                let checkboxes = document.querySelectorAll('input[type="checkbox"]')
+                let filterContainer = document.querySelector('.filter-checkbox')
+                let checkboxes = filterContainer.querySelectorAll('input[type="checkbox"]')
                 checkboxes.forEach((checkbox) => {
                     checkbox.classList.add("checkbox", "mr-2", "mb-1")
                 })
+             console.log(filterContainer)
              console.log(checkboxes)
             })
 

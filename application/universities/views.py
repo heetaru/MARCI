@@ -5,7 +5,10 @@ from .filters import FacultyFilter
 from django.template.loader import render_to_string
 from datetime import date
 from .models import Faculty, Degree, Image
-
+from account.models import Students, SavedFaculty
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+import json
 
 def fee_view(faculty_id):
     faculty = Faculty.objects.get(id=faculty_id)
@@ -26,13 +29,46 @@ def fee_view(faculty_id):
 
 def index(request):
     faculty_list = Faculty.objects.all().distinct()
+    user_id = request.session.get('student_id')
+    user = Students.objects.get(id=user_id)
+    saved_faculty_ids = list(SavedFaculty.objects.filter(student=user).values_list('faculty_id', flat=True))
     filter = FacultyFilter(request.GET, queryset=faculty_list)
+
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        html = render_to_string('universities/faculty_template.html', {'filter': filter})
+        html = render_to_string('universities/faculty_template.html', {'filter': filter, 'saved_faculty_ids': saved_faculty_ids})
         return JsonResponse({'html': html})
+
+
+    if request.method == 'POST':
+        faculty_id = request.POST.get('faculty_id')
+        save_status = request.POST.get('save_status')
+        print(f"faculty_id={faculty_id}, save_status={save_status}")
+
+
     return render(request, 'universities/faculty_list.html', {
-        'filter': filter
+        'filter': filter,
+        'saved_faculty_ids': saved_faculty_ids,
     })
+
+def save_faculty(request):
+    data = json.loads(request.body)
+    university_id = data.get('university_id')
+    is_checked = data.get('is_checked')
+    student_id = request.session.get('student_id')
+    student = Students.objects.get(id=student_id)
+    if is_checked:
+        SavedFaculty.objects.create(
+            faculty_id=university_id,
+            student=student,
+        )
+    else:
+        SavedFaculty.objects.filter(
+            faculty_id=university_id,
+            student=student
+        ).delete()
+
+
+    return JsonResponse({'status': 'ok', 'received': {'university_id': university_id, 'is_checked': is_checked}})
 
 
 def faculty_registration(request):
@@ -47,7 +83,7 @@ def faculty_registration(request):
                                          university_description=data['university_description'],
                                          )
         request.session['faculty_id'] = faculty.id
-        return redirect("faculty-registration-degree")
+        return redirect("faculty_registration_degree")
     return render(request, 'universities/faculty_registration.html', context)
 
 
@@ -81,7 +117,7 @@ def faculty_registration_degree(request):
             )
             values = values[4:]
 
-        return redirect("faculty-registration-images")
+        return redirect("faculty_registration_images")
     return render(request, 'universities/faculty_registration_degree.html', {'faculty_registration_degree': faculty_registration_degree})
 
 

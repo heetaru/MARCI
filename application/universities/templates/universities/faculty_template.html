@@ -1,13 +1,65 @@
 {% for faculty in filter.qs %}
     <div class="card w-full bg-base-100 card-md shadow-sm border ml-4 mr-4">
         <a class="inline-block" href="{% url 'university_view' faculty.id %}">
-            <div class="card-body">
-                <h2 class="card-title">{{ faculty.university_name }}</h2>
-                <p>{{ faculty.faculty_name }}</p>
-                <p>{{ faculty.region }}</p>
+            <div class="flex flex-row justify-between card-body items-center">
+                <div class="">
+                    <h2 class="card-title">{{ faculty.university_name }}</h2>
+                    <p>{{ faculty.faculty_name }}</p>
+                    <p>{{ faculty.region }}</p>
+                </div>
+                <div>
+                    <form method="POST" class="heard_form" id="form-{{ faculty.id }}">
+                        {% csrf_token %}
+                        <input type="hidden" name="faculty_id" value="{{ faculty.id }}"/>
+                        <input type="checkbox"
+                               class="heard_checkbox hidden peer checkbox-trigger"
+                               data-id="{{ faculty.id }}"
+                               data-checked="{{ faculty.is_saved|yesno:'true,false' }}"
+                               id="heart-{{ faculty.id }}"
+                               {% if faculty.id in saved_faculty_ids %}checked{% endif %}
+                        />
+                        <label for="heart-{{ faculty.id }}" class="mask mask-heart w-6 h-6 inline-block cursor-pointer bg-gray-400 peer-checked:bg-red-500 transition-colors duration-300 ease-in-out"></label>
+                    </form>
+                </div>
             </div>
         </a>
     </div>
 {% empty %}
     <h2 class="mt-10 font-bold">Нічого не знайдено!!</h2>
 {% endfor %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const checkboxes = document.querySelectorAll('.checkbox-trigger');
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function () {
+            const universityId = this.dataset.id;
+            const isChecked = this.checked;
+            const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+            fetch("{% url 'save_faculty' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({
+                    university_id: universityId,
+                    is_checked: isChecked
+                })
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Network error');
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response:', data);
+            })
+            .catch(error => {
+                console.error('AJAX error:', error);
+            });
+        });
+    });
+});
+</script>
