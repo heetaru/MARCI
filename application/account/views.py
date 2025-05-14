@@ -3,6 +3,10 @@ from django.views.generic import DetailView
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib import messages
 from .models import Students
+from universities.models import Faculty
+from account.models import Students, SavedFaculty
+
+
 
 def register_view(request):
     if request.method == 'POST':
@@ -32,9 +36,17 @@ def login_view(request):
 
 
 def account_view(request):
+    faculties = Faculty.objects.all()
+    user_id = request.session.get('student_id')
+    user = Students.objects.get(id=user_id)
+    saved_faculty_ids = list(SavedFaculty.objects.filter(student=user).values_list('faculty_id', flat=True))
     if 'student_id' not in request.session:
         return redirect('login')
-    return render(request, 'account/account.html')
+    return render(request, 'account/account.html', {
+        'faculties': faculties,
+        'saved_faculty_ids': saved_faculty_ids,
+    })
+
 
 def logout_view(request):
     request.session.flush()
