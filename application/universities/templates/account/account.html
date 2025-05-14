@@ -10,7 +10,52 @@
         <div class="w-full tabs tabs-lift">
           <input style="" type="radio" name="my_tabs_3" class="tab ml-12" aria-label="Про мене" checked="checked"/>
           <div class="tab-content bg-base-100 border-base-300 p-6">
+            <fieldset class="fieldset">
+                <legend class="fieldset-legend">Імʼя</legend>
+                <label class="input validator">
+                  <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g
+                      stroke-linejoin="round"
+                      stroke-linecap="round"
+                      stroke-width="2.5"
+                      fill="none"
+                      stroke="currentColor"
+                    >
+                      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </g>
+                  </svg>
+                  <input
+                          name="user_name"
+                        type="text"
+                        required
+                        placeholder="Імʼя"
+                        pattern="[А-ЩЬЮЯЄІЇҐа-щьюяєіїґA-Za-z][А-ЩЬЮЯЄІЇҐа-щьюяєіїґA-Za-z ]*"
+                        maxlength="100"
+                        title="Введіть ваше імʼя"
+                          value="{{ student.user_name }}"
+                  />
+                </label>
+                <p class="validator-hint hidden text-xs ">
+                  Ваше імʼя не може містити цифри або знаки
+                </p>
+            </fieldset>
+            <fieldset class="fieldset">
+              <legend class="fieldset-legend">Електронна пошта</legend>
+              <label class="input validator">
+                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></g></svg>
+                <input
+                        name="user_mail"
+                        type="email"
+                        placeholder="mail@gmail.com"
+                        value="{{ student.user_mail }}"
+                        required/>
 
+              </label>
+                <p class="validator-hint hidden text-xs ">
+                  Такої пошти не існує
+                </p>
+            </fieldset>
           </div>
 
           <input type="radio" name="my_tabs_3" class="tab" aria-label="Вам сподобалось" />
@@ -47,7 +92,39 @@
           </div>
 
           <input type="radio" name="my_tabs_3" class="tab" aria-label="Вам МОЖЕ сподобатися" />
-          <div class="tab-content bg-base-100 border-base-300 p-6">Tab content 3</div>
+          <div class="tab-content bg-base-100 border-base-300 p-6">
+              {%  for faculty in faculties %}
+                  {% for liked_faculty in liked_faculties %}
+                  {% if faculty.country == liked_faculty.country %}
+                  <div class="card w-full bg-base-100 card-md shadow-sm border ml-4 mr-4">
+                      <a class="inline-block" href="{% url 'university_view' faculty.id %}">
+                          <div class="flex flex-row justify-between card-body items-center">
+                              <div class="">
+                                  <h2 class="card-title">{{ faculty.university_name }}</h2>
+                                  <p>{{ faculty.faculty_name }}</p>
+                                  <p>{{ faculty.region }}</p>
+                                </div>
+                                <div>
+                                    <form method="POST" class="heard_form" id="form-{{ faculty.id }}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="faculty_id" value="{{ faculty.id }}"/>
+                                        <input type="checkbox"
+                                               class="heard_checkbox hidden peer checkbox-trigger"
+                                               data-id="{{ faculty.id }}"
+                                               data-checked="{{ faculty.is_saved|yesno:'true,false' }}"
+                                               id="heart-{{ faculty.id }}"
+                                               {% if faculty.id in saved_faculty_ids %}checked{% endif %}
+                                        />
+                                        <label for="heart-{{ faculty.id }}" class="mask mask-heart w-6 h-6 inline-block cursor-pointer bg-gray-400 peer-checked:bg-red-500 transition-colors duration-300 ease-in-out"></label>
+                                    </form>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                  {% endif %}
+                  {% endfor %}
+              {% endfor %}
+          </div>
         </div>
     </div>
 
