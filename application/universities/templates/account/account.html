@@ -62,7 +62,7 @@
           <div class="tab-content bg-base-100 border-base-300 p-6">
               {%  for faculty in faculties %}
                   {% if faculty.id in saved_faculty_ids %}
-                  <div class="card w-full bg-base-100 card-md shadow-sm border ml-4 mr-4">
+                  <div class="card w-full bg-base-100 mb-4 card-md shadow-sm border ml-4 mr-4">
                       <a class="inline-block" href="{% url 'university_view' faculty.id %}">
                           <div class="flex flex-row justify-between card-body items-center">
                               <div class="">
@@ -94,9 +94,10 @@
           <input type="radio" name="my_tabs_3" class="tab" aria-label="Вам МОЖЕ сподобатися" />
           <div class="tab-content bg-base-100 border-base-300 p-6">
               {%  for faculty in faculties %}
+                  {% if faculty.id not in saved_faculty_ids %}
                   {% for liked_faculty in liked_faculties %}
                   {% if faculty.country == liked_faculty.country %}
-                  <div class="card w-full bg-base-100 card-md shadow-sm border ml-4 mr-4">
+                  <div class="card w-full bg-base-100 card-md shadow-sm border mb-4 ml-4 mr-4">
                       <a class="inline-block" href="{% url 'university_view' faculty.id %}">
                           <div class="flex flex-row justify-between card-body items-center">
                               <div class="">
@@ -123,6 +124,7 @@
                     </div>
                   {% endif %}
                   {% endfor %}
+                  {% endif %}
               {% endfor %}
           </div>
         </div>
