@@ -19,9 +19,58 @@
     </aside>
 <div class="flex flex-col items-center gap-5" id="facultyResults">
     {% include 'universities/faculty_template.html' %}
+    <div class="drawer flex drawer-end">
+      <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content absolute right-0 fixed right-4 bottom-4">
+        <label for="my-drawer-4" class="drawer-button btn btn-base-200 text-xl border-base-content bo p-5">
+            <i class="fa-solid fa-headset"></i>
+        </label>
+      </div>
+      <div class="drawer-side">
+        <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
+        <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+            <form>
+                {% csrf_token %}
+                <textarea class="textarea" placeholder="Пиши сюда"></textarea>
+                <input type="submit" value="Відправить" class="btn" />
+            </form>
+        </ul>
+      </div>
+    </div>
     </div>
 </div>
-
+    {% comment %}<div class="chat chat-start">
+  <div class="chat-image avatar">
+    <div class="w-10 rounded-full">
+      <img
+        alt="Tailwind CSS chat bubble component"
+        src="https://img.daisyui.com/images/profile/demo/kenobee@192.webp"
+      />
+    </div>
+  </div>
+  <div class="chat-header">
+    Obi-Wan Kenobi
+    <time class="text-xs opacity-50">12:45</time>
+  </div>
+  <div class="chat-bubble">You were the Chosen One!</div>
+  <div class="chat-footer opacity-50">Delivered</div>
+</div>
+<div class="chat chat-end">
+  <div class="chat-image avatar">
+    <div class="w-10 rounded-full">
+      <img
+        alt="Tailwind CSS chat bubble component"
+        src="https://img.daisyui.com/images/profile/demo/anakeen@192.webp"
+      />
+    </div>
+  </div>
+  <div class="chat-header">
+    Anakin
+    <time class="text-xs opacity-50">12:46</time>
+  </div>
+  <div class="chat-bubble">I hate you!</div>
+  <div class="chat-footer opacity-50">Seen at 12:46</div>
+</div>{% endcomment %}
     <script>
          document.addEventListener("DOMContentLoaded", (event) => {
                 let filterContainer = document.querySelector('.filter-checkbox')
