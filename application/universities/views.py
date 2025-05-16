@@ -40,6 +40,9 @@ def index(request):
 
 
     if request.method == 'POST':
+        if request.POST.get('action') == 'ClearData':
+            user.chatgpt_messages_history = ""
+            user.save()
         faculty_id = request.POST.get('faculty_id')
         save_status = request.POST.get('save_status')
         print(f"faculty_id={faculty_id}, save_status={save_status}")

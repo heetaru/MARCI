@@ -5,6 +5,7 @@ class Students(models.Model):
     user_name = models.TextField("Імʼя користувача")
     user_mail = models.TextField("Пошта користувача")
     user_password = models.TextField("Пароль користувача")
+    chatgpt_messages_history = models.TextField("Історія повідомлень з чатботом", default="")
 
     def __str__(self):
         return self.user_name
