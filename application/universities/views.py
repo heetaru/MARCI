@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView
 from django.http import JsonResponse
+
+from .chatgpt import chat_with_gpt
 from .filters import FacultyFilter
 from django.template.loader import render_to_string
 from datetime import date
@@ -43,6 +45,10 @@ def index(request):
         if request.POST.get('action') == 'ClearData':
             user.chatgpt_messages_history = ""
             user.save()
+        if request.POST.get('action') == 'Send':
+            user.chatgpt_messages_history = chat_with_gpt(messages_history=user.chatgpt_messages_history, user_input=request.POST.get('user_input'))
+            user.save()
+
         faculty_id = request.POST.get('faculty_id')
         save_status = request.POST.get('save_status')
         print(f"faculty_id={faculty_id}, save_status={save_status}")
@@ -51,6 +57,7 @@ def index(request):
     return render(request, 'universities/faculty_list.html', {
         'filter': filter,
         'saved_faculty_ids': saved_faculty_ids,
+        'chatgpt_messages_history': user.chatgpt_messages_history,
     })
 
 def save_faculty(request):

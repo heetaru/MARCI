@@ -1,3 +1,5 @@
+import ast
+import json
 import os
 
 from dotenv import load_dotenv
@@ -10,17 +12,16 @@ load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))  # 🔑 Встав свій ключ
 
 # Діалогова функція
-def chat_with_gpt(message_history, user_input):
-    if len(message_history) == 0:
+def chat_with_gpt(messages_history, user_input):
+    if messages_history == "":
         messages = [
             {"role": "system", "content": "Ти дружній помічник, який відповідає українською."}
         ]
     else:
-        messages = [*message_history]
+        messages = ast.literal_eval(messages_history).copy() #ця йобнута функіця потрібна шоб список привести в адекватний формат
 
-    user_input = user_input
+    messages.append({"role": "user", "content": user_input})
 
-    #messages.append({"role": "user", "content": user_input})
 
     response = client.chat.completions.create(
         model="o4-mini-2025-04-16",

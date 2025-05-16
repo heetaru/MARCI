@@ -30,11 +30,25 @@
         <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
         <div class="menu bg-base-200 text-base-content min-h-full w-80 p-4 flex flex-col justify-between">
             <div>
-                *messages*
+                {% for message in chatgpt_messages_history %}
+                    {% if message.role == "user" %}
+                	<div class="chat chat-start">
+                      <div class="chat-bubble">
+                        {{ message.content }}
+                      </div>
+                    </div>
+                    {% endif %}
+                    {% if message.role == "assistant" %}
+                    	<div class="chat chat-end">
+                            <div class="chat-bubble">{{ message.content}}</div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
             </div>
             <form method="post">
                 {% csrf_token %}
-                <textarea class="textarea" placeholder="Напишіть повідомлення до чатботу"></textarea>
+                <textarea class="textarea" name="user_input" placeholder="Напишіть повідомлення до чатботу"></textarea>
                 <input type="submit" name="action" value="Send" class="btn" />
                 <input type="submit" name="action" value="ClearData" class="btn" />
             </form>
