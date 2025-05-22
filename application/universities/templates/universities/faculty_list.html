@@ -31,7 +31,7 @@
       <div class="drawer-side">
         <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
         <div class="menu bg-base-200 text-base-content min-h-full w-80 p-4 flex flex-col justify-between">
-            <div>
+            <div id="chat-container">
                 {% for message in chatgpt_messages_history %}
                     {% if message.role == "user" %}
                 	<div class="chat chat-start">
@@ -46,51 +46,23 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-
             </div>
-            <form method="post">
+           <form id="chat-form" method="post">
                 {% csrf_token %}
                 <textarea class="textarea" name="user_input" placeholder="Напишіть повідомлення до чатботу"></textarea>
-                <input type="submit" name="action" value="Send" class="btn" />
-                <input type="submit" name="action" value="ClearData" class="btn" />
+                <div class="flex gap-2 mt-2">
+                    <button type="submit" name="action" value="Send" class="btn btn-primary">Send</button>
+                    <button type="submit" name="action" value="ClearData" class="btn btn-secondary">Clear</button>
+                </div>
             </form>
+            <div id="loading-spinner" class="hidden mt-2 text-center">
+                <span class="loading loading-spinner loading-lg"></span>
+            </div>
         </div>
       </div>
     </div>
     </div>
 </div>
-    {% comment %}<div class="chat chat-start">
-  <div class="chat-image avatar">
-    <div class="w-10 rounded-full">
-      <img
-        alt="Tailwind CSS chat bubble component"
-        src="https://img.daisyui.com/images/profile/demo/kenobee@192.webp"
-      />
-    </div>
-  </div>
-  <div class="chat-header">
-    Obi-Wan Kenobi
-    <time class="text-xs opacity-50">12:45</time>
-  </div>
-  <div class="chat-bubble">You were the Chosen One!</div>
-  <div class="chat-footer opacity-50">Delivered</div>
-</div>
-<div class="chat chat-end">
-  <div class="chat-image avatar">
-    <div class="w-10 rounded-full">
-      <img
-        alt="Tailwind CSS chat bubble component"
-        src="https://img.daisyui.com/images/profile/demo/anakeen@192.webp"
-      />
-    </div>
-  </div>
-  <div class="chat-header">
-    Anakin
-    <time class="text-xs opacity-50">12:46</time>
-  </div>
-  <div class="chat-bubble">I hate you!</div>
-  <div class="chat-footer opacity-50">Seen at 12:46</div>
-</div>{% endcomment %}
     <script>
          document.addEventListener("DOMContentLoaded", (event) => {
                 let filterContainer = document.querySelector('.filter-checkbox')
@@ -125,6 +97,61 @@
     });
 });
 
+
+
+const chatForm = document.getElementById('chat-form');
+    chatForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(chatForm);
+        const action = e.submitter.value;
+        const spinner = document.getElementById('loading-spinner');
+
+       {% comment %} if (action === 'ClearData') {
+            try {
+            const response = await fetch("{% url 'chat' %}", {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            })
+        }}
+        spinner.classList.remove('hidden'); // показати спінер
+{% endcomment %}
+        spinner.classList.remove('hidden'); // показати спінер
+
+        try {
+
+            const response = await fetch("{% url 'chat' %}", {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'action' : action
+                },
+                body: formData
+            });
+
+            const html = await response.text();
+            // <-- перевірити, що приходить з сервера
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const newChat = doc.getElementById('chat-container');
+
+            if (newChat) {
+                document.getElementById('chat-container').innerHTML = newChat.innerHTML;
+            } else {
+                console.error("Не знайдено #chat-container у відповіді.");
+            }
+
+            chatForm.reset();
+
+        } catch (err) {
+            console.error('Помилка чату:', err);
+        } finally {
+            spinner.classList.add('hidden'); // сховати спінер
+        }
+    });
 
 
     </script>

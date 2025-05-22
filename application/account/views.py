@@ -7,7 +7,6 @@ from universities.models import Faculty
 from account.models import Students, SavedFaculty
 
 
-
 def register_view(request):
     if request.method == 'POST':
         data = request.POST

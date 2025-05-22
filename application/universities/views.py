@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView
 from django.http import JsonResponse
-
+from django.views.decorators.csrf import csrf_exempt
 from .chatgpt import chat_with_gpt
 from .filters import FacultyFilter
 from django.template.loader import render_to_string
@@ -35,29 +35,26 @@ def index(request):
     user = Students.objects.get(id=user_id)
     saved_faculty_ids = list(SavedFaculty.objects.filter(student=user).values_list('faculty_id', flat=True))
     filter = FacultyFilter(request.GET, queryset=faculty_list)
+    try:
+        user_chat_history = json.loads(user.chatgpt_messages_history or "[]")
+    except json.JSONDecodeError:
+        user_chat_history = []
+
 
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         html = render_to_string('universities/faculty_template.html', {'filter': filter, 'saved_faculty_ids': saved_faculty_ids})
         return JsonResponse({'html': html})
 
-
-    if request.method == 'POST':
-        if request.POST.get('action') == 'ClearData':
-            user.chatgpt_messages_history = ""
-            user.save()
-        if request.POST.get('action') == 'Send':
-            user.chatgpt_messages_history = chat_with_gpt(messages_history=user.chatgpt_messages_history, user_input=request.POST.get('user_input'))
-            user.save()
-
-        faculty_id = request.POST.get('faculty_id')
-        save_status = request.POST.get('save_status')
-        print(f"faculty_id={faculty_id}, save_status={save_status}")
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return render(request, "universities/chat_inner.html", {
+            'chatgpt_messages_history': user.chatgpt_messages_history
+        })
 
 
-    return render(request, 'universities/faculty_list.html', {
+    return render(request, 'universities/faculty_list.html',{
         'filter': filter,
         'saved_faculty_ids': saved_faculty_ids,
-        'chatgpt_messages_history': user.chatgpt_messages_history,
+        'chatgpt_messages_history': user_chat_history,
     })
 
 def save_faculty(request):
@@ -130,6 +127,38 @@ def faculty_registration_degree(request):
         return redirect("faculty_registration_images")
     return render(request, 'universities/faculty_registration_degree.html', {'faculty_registration_degree': faculty_registration_degree})
 
+@csrf_exempt
+def chat_view(request):
+    if request.method == 'POST':
+        student_id = request.session.get('student_id')
+        user = Students.objects.get(id=student_id)
+
+        # Завантажуємо історію з БД
+        try:
+            history = json.loads(user.chatgpt_messages_history or "[]")
+        except json.JSONDecodeError:
+            history = []
+
+        if request.headers.get("action") == "ClearData":
+            history = ""
+            user.chatgpt_messages_history = history
+            user.save()
+        else:
+            user_input = request.POST.get("user_input", "")
+            # Викликаємо GPT
+            updated_history = chat_with_gpt(messages_history=history, user_input=user_input)
+
+            # Зберігаємо назад
+            user.chatgpt_messages_history = json.dumps(updated_history, ensure_ascii=False)
+            user.save()
+            history = updated_history
+
+        if request.headers.get("x-requested-with") == "XMLHttpRequest":
+            return render(request, "universities/chat_inner.html", {
+                'chatgpt_messages_history': history
+            })
+
+    return redirect('/')
 
 def faculty_registration_images(request):
     if request.method == 'POST':

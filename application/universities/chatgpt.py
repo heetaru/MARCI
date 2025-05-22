@@ -18,7 +18,8 @@ def chat_with_gpt(messages_history, user_input):
             {"role": "system", "content": "Ти дружній помічник, який відповідає українською."}
         ]
     else:
-        messages = ast.literal_eval(messages_history).copy() #ця йобнута функіця потрібна шоб список привести в адекватний формат
+        messages = messages_history.copy()  # ✅ Вже список, просто копіюємо
+        #messages = ast.literal_eval(messages_history).copy() #ця йобнута функіця потрібна шоб список привести в адекватний формат
 
     messages.append({"role": "user", "content": user_input})
 

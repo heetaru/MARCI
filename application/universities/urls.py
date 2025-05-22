@@ -12,6 +12,7 @@ urlpatterns = [
     path('faculty-registration/images/', views.faculty_registration_images, name='faculty_registration_images'),
     path('faculty/<int:pk>', views.UniversityView.as_view(), name='university_view'),
     path('ajax/save-faculty/', views.save_faculty, name='save_faculty'),
+    path('chat/', views.chat_view, name='chat'),
 ]
 
 if settings.DEBUG:
