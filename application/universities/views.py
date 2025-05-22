@@ -30,15 +30,19 @@ def fee_view(faculty_id):
     return context
 
 def index(request):
+    saved_faculty_ids = []
+    user_chat_history = []
     faculty_list = Faculty.objects.all().distinct()
     user_id = request.session.get('student_id')
-    user = Students.objects.get(id=user_id)
-    saved_faculty_ids = list(SavedFaculty.objects.filter(student=user).values_list('faculty_id', flat=True))
     filter = FacultyFilter(request.GET, queryset=faculty_list)
-    try:
-        user_chat_history = json.loads(user.chatgpt_messages_history or "[]")
-    except json.JSONDecodeError:
-        user_chat_history = []
+
+    if user_id != None:
+        user = Students.objects.get(id=user_id)
+        saved_faculty_ids = list(SavedFaculty.objects.filter(student=user).values_list('faculty_id', flat=True))
+        try:
+            user_chat_history = json.loads(user.chatgpt_messages_history or "[]")
+        except json.JSONDecodeError:
+            user_chat_history = []
 
 
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':

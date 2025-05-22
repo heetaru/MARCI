@@ -7,6 +7,7 @@
                     <p>{{ faculty.faculty_name }}</p>
                     <p>{{ faculty.region }}</p>
                 </div>
+                {% if request.session.student_name %}
                 <div>
                     <form method="POST" class="heard_form" id="form-{{ faculty.id }}">
                         {% csrf_token %}
@@ -21,6 +22,7 @@
                         <label for="heart-{{ faculty.id }}" class="mask mask-heart w-6 h-6 inline-block cursor-pointer bg-gray-400 peer-checked:bg-red-500 transition-colors duration-300 ease-in-out"></label>
                     </form>
                 </div>
+                {% endif %}
             </div>
         </a>
     </div>

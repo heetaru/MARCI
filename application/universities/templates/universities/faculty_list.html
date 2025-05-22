@@ -23,11 +23,13 @@
 <div class="">
     <div class="drawer flex drawer-end">
       <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+        {% if request.session.student_name %}
       <div class="drawer-content absolute right-0 fixed right-4 bottom-4">
         <label for="my-drawer-4" class="drawer-button btn btn-base-200 text-xl border-base-content bo p-5">
             <i class="fa-solid fa-headset"></i>
         </label>
       </div>
+    {% endif %}
       <div class="drawer-side">
         <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
         <div class="menu bg-base-200 text-base-content min-h-full w-80 p-4 flex flex-col justify-between">
