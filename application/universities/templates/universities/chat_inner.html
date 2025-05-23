@@ -1,5 +1,8 @@
 
     <div id="chat-container">
+<div class="chat chat-end">
+            <div class="chat-bubble">Привіт! Я ChatGPT і з радістю допоможу тобі підібрати факультет, що найкраще відповідає твоїм інтересам.</div>
+            </div>
     {% for message in chatgpt_messages_history %}
         {% if message.role == "user" %}
         <div class="chat chat-start">

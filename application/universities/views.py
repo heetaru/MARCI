@@ -139,9 +139,9 @@ def chat_view(request):
 
         # Завантажуємо історію з БД
         try:
-            history = json.loads(user.chatgpt_messages_history or "[]")
+            history = json.loads(user.chatgpt_messages_history or "")
         except json.JSONDecodeError:
-            history = []
+            history = ""
 
         if request.headers.get("action") == "ClearData":
             history = ""

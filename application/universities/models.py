@@ -12,6 +12,17 @@ class Faculty(models.Model):
     def __str__(self):
         return self.university_name
 
+    def get_info(self):
+        data = {
+            'university_name': self.university_name,
+            'faculty_name': self.faculty_name,
+            'country': self.country,
+            'city': self.city,
+            'university_description': self.university_description,
+            'degrees': [degree.get_info() for degree in self.degrees.all()]
+        }
+        return data
+
 
     class Meta:
         verbose_name = 'Університет'
@@ -34,6 +45,15 @@ class Degree(models.Model):
 
     def __str__(self):
         return f"{self.faculty.university_name} || {self.get_type_display()}"
+
+    def get_info(self):
+        data = {
+            'type': self.get_type_display(),
+            'duration': self.duration,
+            'cost': self.cost,
+        }
+
+        return data
 
     class Meta:
         verbose_name = 'Ступінь навчання'
